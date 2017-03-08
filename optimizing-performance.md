@@ -40,7 +40,9 @@ shouldComponentUpdate(nextProps, nextState){
 ### shouldComponentUpdate In Action
 
 这有一个component 的子树。对于每一个节点，`SCU` 表示`shouldComponentUpdate` 返回值，`vDOMEq` 表示这个渲染的React element 是否等价。最后，这个圆圈的颜色表示这个component 是否已经使一致。
+
 ![should-component-update](img/should-component-update.png)
+
 由于`shouldComponentUpdate` 返回`false` 在子树的C2 处，React 不必渲染C2，也就不需要在C4 和C5 处调用`shouldComponentUpdate`。
 
 在C1 和C3 处，`shouldComponentUpdate` 返回`true`，所以React 继续向下叶子节点并检测它们。在C6 处，`shouldComponentUpdate` 返回`true`，由于和已经渲染的element 不想等所以React 必须更新DOM。
@@ -186,10 +188,9 @@ function updateColorMap(colormap){
 
 [Immutable.js](https://github.com/facebook/immutable-js) 是另一种解决这个问题的方法。它同结构共享提供不可变的、持久的集合来工作：
 
-	* Immutable：一旦创建，一个集合在另一个时间点不能被改变。
-	* Persistent：新集合可以从之前集合或一个可变的set 中创建。当新集合被创建之后原始的集合仍然有效。
-	* Structral Sharing：创建的新集合尽可能和使用同原始集合一样的结构，减少复制量提示性能。
-
+* Immutable：一旦创建，一个集合在另一个时间点不能被改变。
+* Persistent：新集合可以从之前集合或一个可变的set 中创建。当新集合被创建之后原始的集合仍然有效。
+* Structral Sharing：创建的新集合尽可能和使用同原始集合一样的结构，减少复制量提示性能。
 
 不变性（immutability）使得追踪改变非常简单。改变总是产生一个新对象所以我们只需要检测这个对象的引用是否改变。例如，下面常规的JavaScript 代码：
 ```jsx

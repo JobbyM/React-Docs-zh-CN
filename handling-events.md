@@ -4,8 +4,8 @@
 
 React elements 处理事件和DOM elements 事件处理非常类似。只有几个语法不同：
 
-	* React events 以camelCase 方式命名，而不是lowercase。
-	* 在JSX 中以function 作为事件句柄（event handler），而不是字符串
+* React events 以camelCase 方式命名，而不是lowercase。
+* 在JSX 中以function 作为事件句柄（event handler），而不是字符串
 
 例子，这HTML
 ```html
@@ -14,7 +14,7 @@ React elements 处理事件和DOM elements 事件处理非常类似。只有几�
 </button>
 ```
 同React 有不同
-·```jsx
+```jsx
 <button onClick={activateLasers}>
   Activate Lasers
 </button>

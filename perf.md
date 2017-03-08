@@ -82,6 +82,7 @@ Perf.getLastMeasurements()
 Perf.printInclusive(measurements)
 ```
 打印花费的所有时间。如果没有参数传入，默认为上次记录的所有测量值。在console 中打印格式友好的表格，像这样：
+
 ![perf-inclusive](img/perf-inclusive.png)
 
 ### printExclusive()
@@ -90,6 +91,7 @@ Perf.printInclusive(measurements)
 Perf.printExclusive(measurements)
 ```
 “排除（Exclusive）”时间不包括加载components 的时间：处理props，调用`componentWillMount` 和`componentDidMount` 等等。
+
 ![perf-exclusive](img/perf-exclusive.png)
 
 ### printWasted()
@@ -99,6 +101,7 @@ Perf.printWasted(measurements)
 ```
 **分析器（profiler）中最有用的部分。**
 “无用的（Wasted）”时间是花费在component 杀死你没有真正渲染任何事情，例如，渲染保持不变，所以DOM 没有被操作（touched）。
+
 ![perf-wasted](img/perf-wasted.png)
 
 ### printOperations()
@@ -107,6 +110,7 @@ Perf.printWasted(measurements)
 Perf.printOperations(measurements)
 ```
 打印底层DOM 操作，例如，“设置innerHTML” 和“移除节点（remove ）”。
+
 ![perf-dom](img/perf-dom.png)
 
 ### printDOM()

@@ -5,7 +5,7 @@
 ## QUICK START
 
 * [Installation](installation.md)
-* [Hello World](hello-word.md)
+* [Hello World](hello-world.md)
 * [Introducing JSX](introducing-jsx.md)
 * [Rendering Elements](rendering-elements.md)
 * [Components and Props](components-and-props.md)

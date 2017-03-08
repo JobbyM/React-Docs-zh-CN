@@ -373,7 +373,9 @@ host 内部实例需要存储：
 * 所有的孩子颞部实例。它们中的每一个可以是`DOMComponent` 或`CompositeComponent`。
 
 如果你很难想象在复杂应用中内部实例树的结构，[React DevTools](https://github.com/facebook/react-devtools) 可以给你一个非常近似的，因为它使用灰色高亮host 实例，使用紫色高亮composite 实例：
+
 ![implementation-notes-tree](img/implementation-notes-tree.png)
+
 为了完成重构，我们将要引入一个函数来加载一个完整的树到容器节点中，就像`ReactDOM.render()` 。它像`ReactDOM.render()` 返回一个公共实例：
 ```jsx
 function mountTree(element, containerNode){

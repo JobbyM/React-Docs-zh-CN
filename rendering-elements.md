@@ -68,6 +68,7 @@ setInterval(tick, 1000)
 React DOM 对比elements 以及它的子节点同之前，并且只更新必要的DOM 的理想状态。
 
 你可以使用浏览器工具去验证[上一个例子](http://codepen.io/gaearon/pen/gwoJZk?editors=0010)：
+
 ![granular-dom-updates](img/granular-dom-updates.gif)
 
 即使我们在每一秒都创建一个element 来描述整个UI 树，但是通过React DOM 我们仅更新文本节点。
