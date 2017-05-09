@@ -9,7 +9,7 @@
 
 > 英文原版：https://facebook.github.io/react/docs/installation.html
 
-React 中文文档主要是[JobbyM](https://github.com/JobbyM/) 根据React 官网进行翻译，其官网版本为v15.4.0。
+React 中文文档主要是[JobbyM](https://github.com/JobbyM/) 根据React 官网进行翻译，其官网版本为v15.5.4。
 
 ## 贡献内容
 
