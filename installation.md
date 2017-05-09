@@ -20,6 +20,7 @@ React 是灵活的并且可以在各种各样的项目中使用。你也可以�
 ```cmd
 npm install -g create-react-app
 create-react-app hello-world
+
 cd hello-world
 npm start
 ```
