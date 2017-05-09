@@ -14,7 +14,7 @@ React 是灵活的并且可以在各种各样的项目中使用。你也可以�
 
 如果你想将其应用到一个完整的应用程序，有两种流行的方式开始使用React：使用Create React App，或者将其添加到现有的应用程序。
 
-## Creating a Single Page Application
+## Creating a New Application
 
 [Create React App]() 是最好的方式去开始构建一个新的React 单页面应用。它设置你的开发环境，以至于你可以使用最新的JavaScript 特性，提供一个非常好的开发体验，并且优化你的应用在生产环境。
 ```cmd
