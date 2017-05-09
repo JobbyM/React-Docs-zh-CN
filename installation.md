@@ -1,8 +1,10 @@
-> 此文章是翻译[Installation](https://facebook.github.io/react/docs/installation.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[Installation](https://facebook.github.io/react/docs/installation.html)这篇React（版本v15.5.4）官方文档。
 
 ## Installation
 
 React 是灵活的并且可以在各种各样的项目中使用。你也可以使用它创建一个项目，但是你也可以逐渐引入它到一个已存在的代码库中而不需要进行重写。
+
+哪些选项描述了
 
 ## Trying Out React
 
