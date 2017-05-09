@@ -26,6 +26,9 @@ npm start
 ```
 Create React App不控制后端逻辑或数据库；它只创建一个前端构建管道（pipeline），所以你可以使用它同你想要的任何后端。它在底层使用Babel 和webpack 这样的构建工具，无需配置既可以工作。
 
+当你准备部署到生产环境时，运行`npm run build` 将会在你的应用的`build` 文件夹下生成一个优化的构建。你可以在Create React App 的[README](https://github.com/facebookincubator/create-react-app#create-react-app-) 以及[User Guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents) 了解更多。
+
+
 ## Adding React to an Existing Application
 
 你不需要重写你的应用去开始使用React。
