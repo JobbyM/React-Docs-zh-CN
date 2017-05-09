@@ -24,7 +24,7 @@ create-react-app hello-world
 cd hello-world
 npm start
 ```
-Create React App不控制后端逻辑或数据库；它只创建一个前端构建管道（pipeline），所以你可以使用它同你想要的任何后端。它在底层使用Babel 和webpack 这样的构建工具，但是为你配置它们。
+Create React App不控制后端逻辑或数据库；它只创建一个前端构建管道（pipeline），所以你可以使用它同你想要的任何后端。它在底层使用Babel 和webpack 这样的构建工具，无需配置既可以工作。
 
 ## Adding React to an Existing Application
 
