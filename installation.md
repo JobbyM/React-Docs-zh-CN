@@ -43,6 +43,8 @@ Create React App不控制后端逻辑或数据库；它只创建一个前端构�
 
 ### Installing React
 
+> Note: 一旦安装，我们强烈建议你设置[生产构建过程](https://facebook.github.io/react/docs/optimizing-performance.html#use-the-production-build)，以确保你在生产中使用最新版本的React。
+
 我们推荐使用[Yarn](https://yarnpkg.com/)或者[npm](https://www.npmjs.com/)管理前端依赖。如果你是新接触包管理器，[Yarn documentation](https://yarnpkg.com/en/docs/getting-started) 是一个好地方开始入门。
 
 使用Yarn 安装React，运行：
@@ -59,13 +61,13 @@ Yarn 和npm 都从[npm registry](http://npmjs.com/)下载包。
 
 ### Enabling ES6 and JSX
 
-我们推荐使用[Babel](http://babeljs.io/) 使用React，让你在你的JavaScript 代码中使用ES6 和JSX。ES6 是现代JavaScript 特性的一个集，它使开发更简单，并且JSX 是JavaScript 语言的扩展所以同React 也很好的工作。
+我们推荐使用[Babel](http://babeljs.io/) 编译React，让你在JavaScript 代码中使用ES6 和JSX。ES6 是现代JavaScript 特性的一个集，它使开发更简单，并且JSX 是JavaScript 语言的扩展所以同React 也很好的工作。
 
-[Babel setup instructions](https://babeljs.io/docs/setup/)解释入工会去在多个不同的构建环境中配置Babel。确保你安装[`babel-preset-react`](http://babeljs.io/docs/plugins/preset-react/#basic-setup-with-the-cli-) 和 [`babel-preset-es2015`](http://babeljs.io/docs/plugins/preset-es2015/#basic-setup-with-the-cli-)并且使它们在你的[`.babelrc` configuration](http://babeljs.io/docs/usage/babelrc/)，并且你很好去做。
+[Babel setup instructions](https://babeljs.io/docs/setup/)解释如何去在多个不同的构建环境中配置Babel。确保你安装[`babel-preset-react`](http://babeljs.io/docs/plugins/preset-react/#basic-setup-with-the-cli-) 和 [`babel-preset-es2015`](http://babeljs.io/docs/plugins/preset-es2015/#basic-setup-with-the-cli-)并且使它们在你的[`.babelrc` configuration](http://babeljs.io/docs/usage/babelrc/) 生效，并且你很好去做。
 
 ### Hello World with ES6 and JSX
 
-我们推荐你使用像[webpack](https://webpack.js.org/)或者[Browserify](http://browserify.org/)打包器，所以你可以写模块化代码并且将它们一起打包到一个小的包中去优化加载时间。
+我们推荐使用像[webpack](https://webpack.js.org/)或者[Browserify](http://browserify.org/)打包器，所以你可以写模块化代码并且将它们一起打包到一个小的包中去优化加载时间。
 
 最小的React 例子看上去像这样：
 ```jsx
@@ -81,21 +83,22 @@ ReactDOM.render(
 
 相似的，你可以渲染一个React component 到一个DOM element 中在你的使用任何其它JavaScript UI 库中的地方。
 
+[了解更多关于在现有代码中集成React](https://facebook.github.io/react/docs/integrating-with-other-libraries.html#integrating-with-other-view-libraries)
+
 ### Development and Production Versions
 
-默认地，React 包括很多有用的警告。这些警告在开发时是非常有用的。然而，它们是React 变得更大和更慢，所以你应该确保使用生产换件版本，当你部署应用时。
+默认地，React 包括很多有用的警告。这些警告在开发时是非常有用的。
 
-#### Create React App
+**然而，它们是React 变得更大和更慢，所以你应该确保使用生产构建版本，当你部署应用时。**
 
-如果你使用[Create React App]()，`npm run build` 将会为你的应用创建一个优化的构建在`build` 文件夹中。
+学习[如何判断你的网站是否提供正确的React 版本](https://facebook.github.io/react/docs/optimizing-performance.html#use-the-production-build)，以及如何去更有效地配置生产构建过程：
 
-#### Webpack
-
-包括`DefinePlugin` 和`UglifyJsPlugin` 到你的生产Webpack 配置作为在[this guide]() 的描述
-
-#### Browserify
-
-使用`NODE_ENV` 环境变量运行Browserify 并且使用[UglifyJS]() 作为最新的构建步骤，以至于只能位于开发的代码被剥离出来。
+* [使用Create React App 创建生产构建](https://facebook.github.io/react/docs/optimizing-performance.html#create-react-app)
+* [使用Signle-File Builds创建生产构建](https://facebook.github.io/react/docs/optimizing-performance.html#single-file-builds)
+* [使用Brunch创建生产构建](https://facebook.github.io/react/docs/optimizing-performance.html#brunch)
+* [使用Browserify创建生产构建](https://facebook.github.io/react/docs/optimizing-performance.html#browserify)
+* [使用Rollup创建生产构建](https://facebook.github.io/react/docs/optimizing-performance.html#rollup)
+* [使用Webpack创建生产构建](https://facebook.github.io/react/docs/optimizing-performance.html#webpack)
 
 ### Using a CDN
 
