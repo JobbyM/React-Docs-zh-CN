@@ -1,4 +1,4 @@
-> 此文章是翻译[Components and Props](https://facebook.github.io/react/docs/components-and-props.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[Components and Props](https://facebook.github.io/react/docs/components-and-props.html)这篇React（版本v15.5.4）官方文档。
 
 ## Components and Props
 
@@ -24,11 +24,11 @@ class Welcome extends Component {
   }
 }
 ```
-从React 角度来看上述两个component 是相等的。
+从React 的View角度来看上述两个component 是相等的。
 
 Classes 有一些额外的特性，这些特性将在[下一章](https://facebook.github.io/react/docs/state-and-lifecycle.html) 讨论。
 
-到那时，为了间接性我们将使用functional components 。
+在此之前，我们将使用functional components 来简化。
 
 ### Rendering a Component
 
@@ -40,37 +40,38 @@ const element = <div />
 ```jsx
 const element = <Welcome name="Sara" />
 ```
-当我们看打一个element 代表一个用户自定义component 时，他将JSX attributes 作为一个单独对象传递给component，我们将这个对象为“props”。
+当React 看到一个element 代表一个用户自定义component 时，他将JSX attributes 作为一个单独对象传递给component，我们将这个对象为“props”。
 
-例如，下面代码在页面上返回“Hello, Sara”：
+例如，下面代码在页面上渲染“Hello, Sara”：
 ```jsx
 function Welcome(props){
   return <h1>Hello, {props.name}</h1>
 }
 
 const element = <Welcome name="Sara" />
-
 ReactDOM.render(
   element,
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/YGYmEG?editors=0010)
+
 让我们简要介绍一下这个例子中发生了什么：
 
-	1. 我们调用`ReactDOM.render()` 方法中使用`<Welcome name="Sara">` element。
+	1. 我们调用`ReactDOM.render()` 使用`<Welcome name="Sara">` element。
 	2. React 调用`Welcome` component 将`{name: 'Sara'}` 作为props。
 	3. 我们的`Welcome` component 返回一个`<h1>Hello, Sara</h1>` element 作为结果。
 	4. React DOM 有效地更新DOM 去匹配`<h1>Hello, Sara</h1> `。
 
 
 >**附加说明：**
-使用大写字母来命令一个component。
+总是使用大写字母来开始命名一个component。
 例如，`<div />` 代表一个DOM 标签，但那是`<Welcome />` 代表一个component，并且需要`Welcome` 在作用域范围内。
 
 
 ### Composing Components
 
-Components 可以在其他components 输出中被引用。这让我们使用相同的在任何细节上抽象的组件。按钮、表单、对话框、一屏（screen）：在React 应用中，所有的这些都可以表示为components。
+Components 可以在其输出中引用其他components 。这让我们可以对任何级别的细节使用相同的component 抽象。按钮、表单、对话框、一屏（screen）：在React 应用中，所有的这些都可以表示为components。
 
 例如，我们创建一个`App` component 来渲染多次`Welcome` component。
 ```jsx
@@ -94,7 +95,9 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
-通常来说，一个新React 应用在顶部只有一个`App` component。 但是，如果你将React 集成到一个现有的应用中，你可能从一个小的component 例如`Button` 来自下而上开始，然后逐渐到视同层的顶级。
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/KgQKPr?editors=0010)
+
+通常来说，一个新React 应用在顶部只有一个`App` component。 但是，如果你将React 集成到一个现有的应用中，你可能从一个小的component 例如`Button` 来自下而上开始，然后逐渐到视图层的顶级。
 
 >**附加说明：**
 Components 必须返回一个单独的root element。这是为什么我们要使用`<div>` 将所有的`<Welcome />` element 包裹起来。
@@ -127,9 +130,11 @@ function Comment(props){
   )
 }
 ```
-它接受`author`（一个对象），`text`（一个字符串）、和`date`（一个日期）来描述一个社交媒体网络评论框。
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/VKQwEo?editors=0010)
 
-这个component 去改变很难因为所有的嵌套，也很那去复用它的各个部分。让我们从它提起几个components。
+它接受`author`（一个对象），`text`（一个字符串）、和`date`（一个日期）作为props，来描述一个社交媒体网络评论框。
+
+这个component 去改变很难因为所有的嵌套，也很那去复用它的各个部分。让我们从它提取几个components。
 
 首先，我们提取一个`Avatar`：
 ```jsx
@@ -144,7 +149,7 @@ function Author(props){
 ```
 这个`Avatar` 并不需要知道它在`Comment` 中被渲染。这是就是为什么我们给他的props 一个更通用的名字：`user` 而不是`author`。
 
-我们建议在命名props 是从component 的角度触发而不是从它被使用的环境。
+我们建议在命名props 是从component 的自己的角度触发而不是从它被使用的环境。
 
 现在我们可以简化一点点`Comment`：
 ```jsx
@@ -194,6 +199,8 @@ function Comment(props){
   )
 }
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/rrJNJY?editors=0010)
+
 一开始提取components 似乎是繁重的工作，但是在一个比较大的应用中会获取很多可复用的components。一个好的经验法则是，如果你的UI 的一部分被多次使用（`Button`、`Panel`、`Avatar`），或是对自己不够复杂（`App`、`FeedStory`、`Comment`），对一个可复用的compoent 来说是一个很好的选择。
 
 ### Props are Read-Only
@@ -206,13 +213,13 @@ function sum(a , b){
 ```
 这种函数被称为[pure](https://en.wikipedia.org/wiki/Pure_function) 因为它们不被允许修改它们的输入，并且相同输入总是返回相同的结果。
 
-相反，如果它能够吸怪自己的输入被称为impure：
+相反，如果它能够修改自己的输入被称为impure：
 ```jsx
 function withdraw(account, amount){
   account.total -= amount
 }
 ```
 React 是相当的灵活的但是它有一个单一的严格的规则：
-**All React Compoents must act like pure functions with respect to theire props.**
+**All React Compoents must act like pure functions with respect to their props.**
 
 当然，应用UI 是动态的可以随着时间改变的。在[下一章](https://facebook.github.io/react/docs/state-and-lifecycle.html)中，我们将介绍一个新的概念state。State 允许components 随着事件改变它们的输出响应用户的行为（user action），网络响应（network responses），其他任何事情而不打破这个规则。
