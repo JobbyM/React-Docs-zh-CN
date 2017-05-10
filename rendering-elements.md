@@ -1,4 +1,4 @@
-> 此文章是翻译[Rendering Elements](https://facebook.github.io/react/docs/rendering-elements.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[Rendering Elements](https://facebook.github.io/react/docs/rendering-elements.html)这篇React（版本v15.5.4）官方文档。
 
 ## Rendering Elements
 
@@ -11,7 +11,7 @@ const element = <h1>Hello, world</h1>
 不像浏览器DOM elements，React elements 是纯对象，非常容易创建。React DOM 关心更新DOM 来匹配React elements。
 
 >**Note：**
-Elements 可能和另一个广为人知的概念components 产生混淆。我们将要在[下一章节](https://facebook.github.io/react/docs/components-and-props.html)介绍components。Components 是有elements 组成，我们建议你先阅读这部分再跳到下一章。
+Elements 可能和另一个广为人知的概念components 产生混淆。我们将要在[下一章节](https://facebook.github.io/react/docs/components-and-props.html)介绍components。Components 是由elements 组成，我们建议你先阅读这部分再跳到下一章。
 
 ### Rendering an Element into the DOM
 
@@ -26,12 +26,12 @@ Elements 可能和另一个广为人知的概念components 产生混淆。我们
 为了渲染一个React element 到一个root DOM 节点，需要将其都传入`ReactDOM.render()`：
 ```jsx
 const element = <h1>Hello, world</h1>
-
 ReactDOM.render(
   element,
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/rrpgNB?editors=1010)
 它将会在页面上显示“Hello World”。
 
 ### Updating the Rendered Element
@@ -57,10 +57,11 @@ function tick(){
 
 setInterval(tick, 1000)
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/gwoJZk?editors=0010)
 每个一秒通过`setInterval()` 回调函数来调用`ReactDOM.render()` 方法。
 
 >**Note:**
-实际上，多说React 应用只调用`ReactDOM.render()` 方法一次。下一章节我们将学习如何将有代码封装到[stateful components](https://facebook.github.io/react/docs/state-and-lifecycle.html)。
+实际上，大多数React 应用只调用`ReactDOM.render()` 方法一次。下一章节我们将学习如何将现有代码封装到[stateful components](https://facebook.github.io/react/docs/state-and-lifecycle.html)。
 我们建议你不要跳过主题因为它们建立在彼此之上。
 
 ### React Only Updates What's Necessary
