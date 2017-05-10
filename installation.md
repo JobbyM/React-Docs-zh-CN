@@ -102,7 +102,7 @@ ReactDOM.render(
 
 ### Using a CDN
 
-如果你不想使用npm 去管理客户端包，`react` 和`react-dom` npm 包也提供单文件分发在`dist` 文件夹中，它位于一个CDN 上：
+如果你不想使用npm 去管理客户端包，`react` 和`react-dom` npm 包也提供单文件分发在`dist` 文件夹中，它托管在CDN 上：
 ```jsx
 <script src="https://unpkg.com/react@15/dist/react.js"></script>
 <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
