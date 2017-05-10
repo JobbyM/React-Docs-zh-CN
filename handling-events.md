@@ -13,7 +13,7 @@ React elements 处理事件和DOM elements 事件处理非常类似。只有几�
   Activate Lasers
 </button>
 ```
-同React 有不轻微同
+同React 有轻微不同
 ```jsx
 <button onClick={activateLasers}>
   Activate Lasers
