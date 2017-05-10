@@ -1,4 +1,4 @@
-> 此文章是翻译[State and Lifecycle](https://facebook.github.io/react/docs/state-and-lifecycle.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[State and Lifecycle](https://facebook.github.io/react/docs/state-and-lifecycle.html)这篇React（版本v15.5.4）官方文档。
 
 ## State and Lifecycle
 
@@ -6,7 +6,7 @@
 
 到现在为止，我们只会通过一种方式进行更新UI。
 
-我们通过调用`ReactDOM.render()` 方法去改变渲染输入：
+我们通过调用`ReactDOM.render()` 方法去改变渲染输出：
 ```jsx
 function tick(){
   const element = (
@@ -23,7 +23,9 @@ function tick(){
 
 setInterval(tick, 1000)
 ```
-在这一章节中，我们将学习如何使时钟component 真正可复用和封装。它将设置自己的定时器来每一秒更新它自己。
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/gwoJZk?editors=0010)
+
+在这一章节中，我们将学习如何使用`Clock` component 真正可复用和封装。它将设置自己的定时器来每一秒更新它自己。
 
 我们开始封装始时钟外观：
 ```jsx
@@ -45,7 +47,9 @@ function tick(){
 
 setInterval(tick, 1000)
 ```
-但是，它忽略了一个关键的需求：一个事实，即`Clock` 应该在`Clock` 内部设置一个定时器来每隔一秒进行更新。
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/dpdoYR?editors=0010)
+
+但是，它忽略了一个关键的需求：一个事实，即`Clock` 设置一个定时器来每隔一秒进行更新UI ，应该是`Clock` 的实现细节。
 
 理想状况下，我们只写一次来让`Clock` 更新自身：
 ```jsx
@@ -54,11 +58,11 @@ setInterval(tick, 1000)
     document.getElementById('root')
   )
 ```
-为了实现，我们需要在`Clock` component 中添加state。
+为了实现，我们需要在`Clock` component 中添加“state”。
 
 State 同props 非常相似，但是它是私有的完全被component 控制。
 
-我们[之前提到过](https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components) component 使用classes 定义有额外的特性（additional features）。本地State 只能通过classes 提供此功能。
+我们[之前提到过](https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components) component 使用classes 定义有额外的特性（additional features）。本地State 就是这样：只能通过classes 提供此功能。
 
 ### Converting a Function to a Class
 
@@ -82,6 +86,8 @@ class Clock extends Component {
   }
 }
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/zKRGpo?editors=0010)
+
 `Clock` 现在是通过class 定义而不是function。
 
 现在我们可以使用额外的特性例如本地state 和lifecycle hooks。
@@ -103,7 +109,7 @@ class Clock extends Component {
 }
 
 ```
-2）添加一个[class constructor]() 并给`this.state` 赋初值：
+2）添加一个[class constructor](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes#Constructor) 并给`this.state` 赋初值：
 ```jsx
 class Clock extends Component {
   constructor(props){
@@ -166,15 +172,17 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/KgQpJd?editors=0010)
+
 接下来，我们将给`Clock` 设置定时器并每秒更新一次。
 
 ### Adding Lifecycle Methods to a Class
 
 在一个使用许多component 的应用中，当components 被销毁时去释放资源是非常重要的。
 
-我们将在每次渲染DOM 的一次时设置定时器。在React 中被称为“mounting”。
+当`Clock` 第一次渲染到DOM 时，我们要[设置一个定时器](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval)。在React 中被称为“mounting”。
 
-我们将在`Clock` 产生的DOM 被移除时去[清除定时器](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/clearInterval)。在React 中被称为“unmounting”。
+当`Clock` 产生的DOM 被移除时去，我们也要[清除定时器](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/clearInterval)。在React 中被称为“unmounting”。
 
 当一个组件被mounts 和unmounts 时，我们将在通过在component class 中声明特殊的方法（special methods）去运行一些代码：
 ```jsx
@@ -270,14 +278,16 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/amqdNA?editors=0010)
+
 现在这个时钟每秒滴答一次。
 
 让我们快速回顾一下每一步都调用那个方法：
 
 1）当将`<Clock />` 传给`ReactDOM.render()` 方法时，React 调用 `Clock` component 的constructor 方法。由于`Clock` 需要展示当前时间，它使用一个包含当前时间的对象初始化`this.state`。我们之后将更新这个state。
 2）React 然后调用`Clock` component 的`render()` 方法。这是React 了解要在屏幕上展示什么。React 然后更新DOM 去匹配`Clock` 的渲染输出。
-3）当`Clock` 输出被插入到DOM 中，React 调用`componentDidMount()` lifecycle hook。在它内部，`Clock` component 要求浏览器设置一个定时器去每个一秒调用`tick()`。
-4）每隔一秒浏览器就调用`tick()`方法。在它内部，`Clock` component 调用一个UI 更新通过调用一个包含当前时间对象的`setState()` 方法。由于`setState()` 调用，React 知道当前state 已经发生变化，于是又去调用`render()` 方法去了解屏幕上应该显示什么。这次，`this.state.date`在`render()` 中是不同的，所以渲染输出会包含当前时间。React 相应地更新DOM。
+3）当`Clock` 输出被插入到DOM 中，React 调用`componentDidMount()` lifecycle hook。在它内部，`Clock` component 要求浏览器设置一个定时器去每隔一秒调用`tick()`。
+4）每隔一秒浏览器就调用`tick()`方法。在它内部，`Clock` component 调度一个UI 更新通过调用一个包含当前时间对象的`setState()` 方法。由于`setState()` 调用，React 知道当前state 已经发生变化，于是又去调用`render()` 方法去了解屏幕上应该显示什么。这次，`this.state.date`在`render()` 中是不同的，所以渲染输出会包含当前时间。React 相应地更新DOM。
 5）如果`Clock` component 被从DOM 中移除，React 将会调用`componentWillUnmount()` lifecycle hook 所以这个定时器会停止。
 
 ### Using State Correctly
@@ -379,6 +389,8 @@ function FormattedDate(props){
   return <h2>It is {props.date.toLocaleTimeString()}.</h2>
 }
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/zKRqNB?editors=0010)
+
 这就是自上而下（top-down）或单向的（unidirectional）数据流。任何state 都是有某些特定component 拥有的，任何来自该state 的数据或UI 都只能影响位于层级树之下的component。
 
 如果你设想一个component tree 是一个props 的瀑布流，每一个component 的state 都像是一个在任意位置加入的额外的只能向下流的水源。
@@ -400,6 +412,8 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/vXdGmd?editors=0010)
+
 每一个`Clock`都独立的设置它们自己的定时器进行更新。
 
 在React 应用中，component 是否有状态是一个可以随着时间变化的实现细节。你可以在有状态的component 中使用无状态的component，反之亦然。
