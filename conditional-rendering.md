@@ -1,4 +1,4 @@
-> 此文章是翻译[conditional rendering](https://facebook.github.io/react/docs/conditional-rendering.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[conditional rendering](https://facebook.github.io/react/docs/conditional-rendering.html)这篇React（版本v15.5.4）官方文档。
 
 ## Conditional Rendering
 
@@ -33,11 +33,13 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/ZpVxNq?editors=0011)
+
 上面这个例子展示了根据`isLoggedIn` 这个props 来渲染。
 
 ### Element Variables
 
-你可以使用变量来存储elements。这样可以帮助你条件渲染一部分组件当其他剩余组件不改变。
+你可以使用变量来存储elements。这样可以帮助你条件渲染一部分组件，同时其他剩余组件不改变。
 
 考虑到下面两个组件来代表Logout 和Login 按钮（button）：
 ```jsx
@@ -106,11 +108,13 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/QKzAgB?editors=0010)
+
 当声明了一个变量并且使用`if` 语句是一个好方式去渲染一个组件，有时你可能想要使用更多的语法（a shorter syntax）。下面来介绍几种在JSX 中使用单行条件（inline conditions）
 
 ### Inline if with Logical && Operator
 
-你可以在JSX 中嵌入任何表达式（[embed any expressions in JSX]()）通过使用大括号（curly braces）包裹它们。这里包括JavaScript `&&`（逻辑与 ） 操作符。它可以很方便作为条件在一个element 中：
+你可以在JSX 中嵌入任何表达式（[embed any expressions in JSX](https://facebook.github.io/react/docs/introducing-jsx.html#embedding-expressions-in-jsx)）通过使用大括号（curly braces）包裹它们。这里包括JavaScript `&&`（逻辑与 ） 操作符。它可以很方便作为条件在一个element 中：
 ```jsx
 function Mailbox(props){
   const unreadMessages = props.unreadMessages
@@ -133,6 +137,8 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/ozJddz?editors=0010)
+
 在JavaScript 中它是工作的，`true&&expression` 总是返回`expression`，而`false&&expression` 总是返回`false`。
 
 因此，如果条件是`true`，位于`&&` 右侧的element 会被显示，如果是`false`，React 会忽略并且跳过它。
@@ -153,7 +159,7 @@ ReactDOM.render(
     )
   }
 ```
-它可以被用作大的表达式，虽然对将要反生什么并不明显：
+它可以被用作大的表达式，虽然对将要发生什么并不明显：
 ```jsx
   render(){
     const isLoggedIn = this.state.isLoggedIn
@@ -166,8 +172,11 @@ ReactDOM.render(
     }
     return(
       <div>
-        <Greating isLoggedIn={isLoggedIn}/>
-        {button}
+        {isLoggedIn ? (
+          <LogoutButton onClick={this.handleLogoutClick} />
+        ) : (
+          <LoginButton onClick={this.handleLoginClick} />
+        )}
       </div>
     )
   }
@@ -224,3 +233,6 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/Xjoqwm?editors=0010)
+
+从组件（component）的`render`方法返回`null`不会影响组件生命周期方法（component's lifecycle method）的触发。 例如，`componentWillUpdate`和`componentDidUpdate`仍将被调用。
