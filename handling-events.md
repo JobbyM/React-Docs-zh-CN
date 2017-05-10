@@ -1,4 +1,4 @@
-> 此文章是翻译[handling-events](https://facebook.github.io/react/docs/handling-events.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[handling-events](https://facebook.github.io/react/docs/handling-events.html)这篇React（版本v15.5.4）官方文档。
 
 ## Handling Event
 
@@ -13,7 +13,7 @@ React elements 处理事件和DOM elements 事件处理非常类似。只有几�
   Activate Lasers
 </button>
 ```
-同React 有不同
+同React 有不轻微同
 ```jsx
 <button onClick={activateLasers}>
   Activate Lasers
@@ -39,11 +39,11 @@ function ActionLink(){
   )
 }
 ```
-这里`e` 是一个合成事件（synthetic event）。React 根据[W3C spce](https://www.w3.org/TR/DOM-Level-3-Events/)来定义合成事件（synthetic event），所以你不必担心跨浏览器适配（cross-browser compatibility）问题。参考`SyntheticEvent` 了解更多。
+这里`e` 是一个合成事件（synthetic event）。React 根据[W3C spce](https://www.w3.org/TR/DOM-Level-3-Events/)来定义合成事件（synthetic event），所以你不必担心跨浏览器适配（cross-browser compatibility）问题。参考[`SyntheticEvent`](https://facebook.github.io/react/docs/events.html) 了解更多。
 
 在使用React 时通常你不需要在一个DOM element创建之后，调用`addEventListener`去添加一个侦听器。相反，只需要在element 被初次渲染时添加一个侦听器就可以了。
 
-当你使用[ES6 class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes) 定义一个组件（component）时，通常的做法是在类（class）中添加一个方法作为事件句柄（event handler）。例如，这个`Toggle` 组件就是渲染一个按钮（button）让用户在“ON”和“OFF”状态之间切换。
+当你使用[ES6 class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes) 定义一个组件（component）时，通常的做法是在类（class）中添加一个方法作为事件句柄（event handler）。例如，这个`Toggle` 组件（component）就是渲染一个按钮（button）让用户在“ON”和“OFF”状态之间切换。
 ```jsx
 class Toggle extends Component {
   constructor(props){
@@ -76,6 +76,7 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](http://codepen.io/gaearon/pen/xEmzGg?editors=0010)
 
 你必须注意在JSX 回调函数中`this` 的含义。在JavaScript 中，类方法并不是默认绑定的（[bound](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind)）。如果你忘记绑定`this.handleClick` 并把它传递给`onClick`，在实际被调用时，`this` 的值将会是`undefined`。
 
