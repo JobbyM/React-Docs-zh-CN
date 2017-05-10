@@ -1,8 +1,8 @@
-> 此文章是翻译[lists-and-keys](https://facebook.github.io/react/docs/lists-and-keys.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[lists-and-keys](https://facebook.github.io/react/docs/lists-and-keys.html)这篇React（版本v15.5.4）官方文档。
 
 ## Lists and Keys
 
-首先，让我们复习一下在JavaScript 中如何改变数组。
+首先，让我们复习一下在JavaScript 中如何改变list。
 
 给定代码如下，我们使用`map()`函数来接受一个`numbers` 数组并对其值进行加倍。我们将`map()`函数的返回值赋给`doubled` 并打印这个值：
 ```jsx
@@ -32,13 +32,15 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/GjPyQr?editors=0011)
+
 这段代码展示从1 到5 的数字列表
 
 ### Basic List Component
 
 通常你会在一个组件（[component](https://facebook.github.io/react/docs/components-and-props.html)）中渲染一个列表。
 
-我们重构之前的例子为组件，此组件接受一个`numbers` 数组，输出也一个elements 的无须列表
+我们重构之前的例子为组件（component），此组件（component）接受一个`numbers` 数组，输出也一个elements 的无序列表
 ```jsx
 function NumberList(props){
   const numbers = props.numbers;
@@ -74,6 +76,7 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/jrXYRR?editors=0011)
 
 ### Keys
 
@@ -94,7 +97,7 @@ const todoItemss = todos.map((todo)=>
   </li>
 )
 ```
-当你不需要为渲染像提供IDs 时，你可以使用项目索引作为最后的手段（a last resort）：
+当你不需要为渲染像提供IDs 时，你可以使用item索引作为最后的手段（a last resort）：
 ```jsx
 const todoItemss = todos.map((todo, index)=>
   // Only do this if items have no stable IDs
@@ -109,7 +112,7 @@ const todoItemss = todos.map((todo, index)=>
 
 Keys 只有在数组的上下文中才有意义。
 
-例如，如果你提取了一个`ListItem` 组件，你应该在`<ListItem />` 数组的elements 上使用这个key，而不是在`ListItem` 中的`<li>` element 上。
+例如，如果你[提取](https://facebook.github.io/react/docs/components-and-props.html#extracting-components)了一个`ListItem` 组件，你应该在`<ListItem />` 数组的elements 上使用这个key，而不是在`ListItem` 中的`<li>` element 上。
 
 错误的使用Key 的例子：
 ```jsx
@@ -176,7 +179,9 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
-一个好方法是在调用个`map()` 方法的elements 内部使用keys。
+[在CodePen 上尝试](https://codepen.io/rthor/pen/QKzJKG?editors=0010)
+
+一个好方法是`map()`调用中的elements 需要使用keys。
 
 ### Keys Must Only Be Unique Among Sibings
 
@@ -219,12 +224,15 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
-Keys 只是作为React 的线索它们不能传递给你的组件。如果你必须在你的组件中使用同样的值，请明确将其传给一个不同名字的props：
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/NRZYGN?editors=0010)
+
+Keys 只是作为React 的线索它们不能传递给你的组件。如果你必须在你的组件中使用同样的值，请明确将其传给一个不同名字的prop：
 ```jsx
 const content = posts.map((post)=>
   <Post
     key={post.id}
     id={post.id}
+    title={post.title}
     />
 )
 ```
@@ -262,4 +270,6 @@ function NumberList(props){
   )
 }
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/BLvYrB?editors=0010)
+
 有时在这清晰代码中结果，但是这种样式可能被滥用。像在JavaScript 中，它只是由你来决定提取一个变量是否更可读。记住如果`map()` 体中太嵌套了，提取一个组件（[extract a component](https://facebook.github.io/react/docs/components-and-props.html#extracting-components)）是更好的方法。
