@@ -32,6 +32,7 @@ ReactDOM.render(
 )
 ```
 [在CodePen 上尝试](http://codepen.io/gaearon/pen/rrpgNB?editors=1010)
+
 它将会在页面上显示“Hello World”。
 
 ### Updating the Rendered Element
@@ -58,6 +59,7 @@ function tick(){
 setInterval(tick, 1000)
 ```
 [在CodePen 上尝试](http://codepen.io/gaearon/pen/gwoJZk?editors=0010)
+
 每个一秒通过`setInterval()` 回调函数来调用`ReactDOM.render()` 方法。
 
 >**Note:**
