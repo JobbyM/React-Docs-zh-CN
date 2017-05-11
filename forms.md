@@ -1,4 +1,4 @@
-> 此文章是翻译[forms](https://facebook.github.io/react/docs/forms.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[forms](https://facebook.github.io/react/docs/forms.html)这篇React（版本v15.5.4）官方文档。
 
 ## Form
 
@@ -12,7 +12,7 @@
   <input type="submit" value="Submit"/>
 </form>
 ```
-当用户提交一个表单时，form 会有一个默认打开一个新页面的行为。在React 中如果你想要这个行为，它也工作。但是在大多数情况下，通过JavaScript function 去控制表单提交并获取用户在form 中的行为是很方便的。使用“controlled components” 这种技术来实现这种标准行为。
+当用户提交一个表单时，form 会有一个默认打开一个新页面的行为。在React 中如果你想要这个行为，它也工作。但是在大多数情况下，通过JavaScript function 去控制表单提交并获取用户在form 中的数据是很方便的。使用“controlled components” 这种技术来实现这种标准行为。
 
 ### Controlled Components
 
@@ -57,6 +57,8 @@ class NameForm extends Component {
   }
 }
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/VmmPgp?editors=0010)
+
 由于`value` 特性（attribute）设置在form element，将总是展示`tthis.state.value` 这个值，使React state 成为“the source of truth”。由于`handleChange` 总是随着每一次按键而运行去更新React state，展示的值也总是随着用户的键入而更新。
 
 对于controlled component，每一次状态改变（state mutation）总是有相应的句柄函数（handler function）。这能更直接的修改和验证用户的输入。例如，如果我们想强制将每一个输入都变成大写，我们可以如下修改`handleChange`：
@@ -146,6 +148,7 @@ class FlavorForm extends Component {
 
   handleSubmit(event){
     alert('Your favourite flavor is: ' + this.state.value)
+    event.preventDefault();
   }
 
   render(){
@@ -165,9 +168,78 @@ class FlavorForm extends Component {
     )
   }
 }
-
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/JbbEzX?editors=0010)
+
 总的来说，这使得`<input type="text>`、`<textarea>` `<select>`的使用非常相似-它们都可以通过接受一个`value` 来实现controlled component。
+
+### Handling Mutiple Inputs
+
+当你需要处理多个controlled `input` elements，你可以添加一个`name` 特性（attibute）到每一个element，并且让句柄函数（handler function）根据`event.target.name` 的值去选择做什么。
+
+例如：
+```jsx
+class Reservation extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isGoing: true,
+      numberOfGuests: 2
+    }
+
+    this.handleInputChange = this.handleInputChange.bind(this)
+  }
+
+  handleInputChange(event) {
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const name = target.name
+
+    this.setState({
+      [name]: value
+    })
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          Is going:
+          <input
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Number of guests:
+          <input
+            name="numberOfGuests"
+            type="number"
+            value={this.state.numberOfGuests}
+            onChange={this.handleInputChange} />
+        </label>
+      </form>
+    )
+  }
+}
+```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/wgedvV?editors=0010)
+
+注意我们如何使用ES6[computed property name](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names)语法更新state key 响应给定的input name:
+```jsx
+this.setState({
+  [name]: value
+})
+```
+它同ES5 代码相同:
+```jsx
+var partialState = {}
+partialState[name] = value
+this.setState(partialState)
+```
+此外，由于`setState()`自动将[部分状态合并到当前状态](https://facebook.github.io/react/docs/state-and-lifecycle.html#state-updates-are-merged)，所以我们只需要调用更改的部分。
 
 ### Alternatives to Controlled Components
 
