@@ -1,8 +1,8 @@
-> 此文章是翻译[thingking in react](https://facebook.github.io/react/docs/thingking-in-react.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[thingking in react](https://facebook.github.io/react/docs/thingking-in-react.html)这篇React（版本v15.5.4）官方文档。
 
 ## Thinking in React
 
-在我们看来，React 是使用JavaScript 构建大型开始Web 应用的首选。它已经在Facebook 和Instagram 中被广泛应用了。
+在我们看来，React 是使用JavaScript 构建大型快速Web 应用的首选。它已经在Facebook 和Instagram 中被广泛应用了。
 
 React 最大的方面是使你考虑如果构建你的应用。在这篇文档中，我们将带你浏览通过使用React 构建一个searchable product data的思维过程。
 
@@ -26,9 +26,9 @@ React 最大的方面是使你考虑如果构建你的应用。在这篇文档�
 
 ### Step 1: Break The UI Into A Component Hierarchy
 
-第一件事在mock 中给每一个组件（子组件）画框并进行命令。如果你和一个设计师工作，他们已经做好这些了，所以去和他们讨论！Photoshop 层名字可以作为你的React 组件名字！
+第一件事在mock 中给每一个组件（子组件）画框并进行命名。如果你和一个设计师工作，他们已经做好这些了，所以去和他们讨论！Photoshop 层名字可以作为你的React 组件名字！
 
-但是你怎么知道什么是它们自己的组件？只需要使用你是否决定创建一个新的function 或者object 这个中技术。其中一个技术是[single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle)，也就是说，理论上一个组件只做一件事。如果组件变大，它应该被拆分成几个小组件。
+但是你怎么知道什么是它们自己的组件？只需要使用相同的技术是否决定创建一个新的function 或者object 这个中技术。其中一个技术是[single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle)，也就是说，理论上一个组件只做一件事。如果组件变大，它应该被拆分成几个小组件。
 
 由于你经常展示一个JSON 数据模型给用户，你会发现如果你的模型被正确构建，那么你的UI（和你的组件框架）会非常好的匹配。那是因为UI 和数据模型总是依附相同的信息架构（information architecture），也就是意味着分离你的UI 成为组件是非常容易的。只要正确地的将你的每一个数据模型对应组件就可以了。
 
@@ -142,7 +142,9 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
-现在你有了自己的组件系统，是时候实现你的app 了。最简单的方式的是个构建一个没有交互的只是将数据渲染成UI。最好解耦这些过程，因为构建一个静态版本需要许多代码不需要思考，人后添加交互需要更多思考和少量的代码。我们会看到为什么。
+[在CodePen 上尝试](http://codepen.io/lacker/pen/vXpAgj)
+
+现在你有了自己的组件系统，是时候实现你的app 了。最简单的方式的是个构建一个没有交互的只是将数据渲染成UI。最好解耦这些过程，因为构建一个静态版本需要许多代码不需要思考，添加交互需要更多思考和少量的代码。我们会看到为什么。
 
 为了构建一个静态的app 去渲染你的数据模型（data model），你想要构建组件并复用其他的组件同使用props 去传递数据。props 是从父组件传递给子组件数据的一种方式。如果你了解state 的概念，在构建静态版本时，一点也不需要使用state（don't use state at all）。State 被留作交互时，数据随着时间而变动。因为是静态版本，所以你不需要state。
 
@@ -293,6 +295,7 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](http://codepen.io/lacker/pen/ORzEkG)
 
 OK，现在我们已经确认了app state 的最小集合。Next，我们需要确认一个组件改变或拥有这个state。
 
@@ -451,6 +454,8 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
+[在CodePen 上尝试](http://codepen.io/rohan10/pen/qRqmjd)
+
 到现在为止，我们已经建立了一个应用程序，进行正确渲染将props 和state 作为功能在层级中向下流动。现在，是时候添加支持数据从另一个方法流动：在层级中最深出的form 组件去更新位于`FilterableProductTable` 中的state。
 
 Reack 为了使数据流明确，使它能够容易的了解你的程序是如何工作的，但是它需要更多的数据相比传统的双线数据绑定（two-way data binding）
