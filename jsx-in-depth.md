@@ -1,8 +1,8 @@
-> 此文章是翻译[JSX In Depth](https://facebook.github.io/react/docs/jsx-in-depth.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[JSX In Depth](https://facebook.github.io/react/docs/jsx-in-depth.html)这篇React（版本v15.5.4）官方文档。
 
 ## JSX In Depth
 
-从根本上说，JSX 只是提供了语法糖（syntactic sugar） 为`React.createElement(component, props, ...children)` 函数。这种JSX 代码：
+从根本上说，JSX 只是为`React.createElement(component, props, ...children)` 函数提供了语法糖（syntactic sugar） 。这种JSX 代码：
 ```jsx
 <MyButton color="blue" shadowSize={2}>
   Click Me
@@ -16,7 +16,7 @@ React.createElement(
   'Click Me'
 )
 ```
-如果没有子节点你也可以使用自闭合（self-closing）标签。像这样：
+如果没有子节点你也可以使用自闭合（self-closing）标签形式。像这样：
 ```jsx
 <div className="sidebar" />
 ```
@@ -40,7 +40,7 @@ JSX 标签的第一部分决定了React element 的类型（type）。
 
 既然编译JSX 需要调用`React.createElement`,这个`React` 库也必须在你的JSX 代码的作用域内。
 
-例如，这灵感在代码中都是必须被引入的（import），即使`React` 和`CustomButton` 没有被直接引用：
+例如，在代码中都是必须被引入的（import），即使`React` 和`CustomButton` 没有被直接引用：
 ```jsx
 import React from 'react'
 import CustomButton from './CustomButton'
@@ -50,7 +50,7 @@ function WarningButton(){
   return <CustomButton color="red"/>
 }
 ```
-如果你没有使用JavaScript 打包器（bundler）而是直接将React 作为一个脚本标签（script tag），React 已经作为一个全局变量在作用域中了。
+如果你没有使用JavaScript 打包器（bundler）而是从一个脚本标签（script tag）加载React，React 已经作为一个全局变量在作用域中了。
 
 #### Using Dot Notation for JSX Type
 
@@ -142,7 +142,7 @@ function Story(props){
 
 ### Props in JSX
 
-在JSX 中有集中不同的方式去规定props。
+在JSX 中有几种不同的方式去规定props。
 
 #### JavaScript Expressions
 
@@ -152,7 +152,7 @@ function Story(props){
 ```
 对于`MyComponent`，这个`props.foo` 的值将是计算表达式`1 + 2 + 3 + 4` 得到的结果`10`。
 
-在JavaScript 中`if` 语句和`foo` 循环不是表达式，所以它们不能直接在JSX 中使用。 反而，你需要将它们在代码中使用。例如：
+在JavaScript 中`if` 语句和`foo` 循环不是表达式，所以它们不能直接在JSX 中使用。 相反，你需要将它们在代码中使用。例如：
 ```jsx
 function NumberDescriber(props){
   let description
@@ -164,6 +164,7 @@ function NumberDescriber(props){
   return <div>{props.number} is an {description} number</div>
 }
 ```
+你可以在[conditional rendering](https://facebook.github.io/react/docs/conditional-rendering.html) 和[loops](https://facebook.github.io/react/docs/lists-and-keys.html) 相关章节了解更多。
 
 #### String Literals
 
@@ -203,8 +204,8 @@ function App2(){
   conost props = {firstname: 'Ben', lastName='Hector'}
   return <Greeting {...props} />
 }
-````
-Spread attributes 是非常有用的当你构建一般容器（generic containers）。但是，由于非常容易将不相关的props 传入components 而不关心它们会使你的代码非常混乱。
+```
+Spread attributes 是非常有用的当你构建一般容器（generic containers）。但是，由于非常容易将不相关的props 传入components 而不关心它们会使你的代码非常混乱。我们建议你谨慎使用这种语法。
 
 ### Children in JSX
 
@@ -260,7 +261,7 @@ JSX 会移除一行中开始和结尾的空格。它也移除空行。邻接标�
 ```
 一个React component 不能返回多个React elements，但是一个JSX 表达式可以有多个子节点，所以如果你要在一个component 中渲染跟多东西，你可以将其包裹在一个`div` 中。
 
-#### JavaScript Expressions
+#### JavaScript Expressions as Children
 
 你要将任何JavaScript 表达式通过包裹在`{}` 中将其作为子节点传入。例如：所以下面两种JSX 表达式是等价的：
 ```jsx
