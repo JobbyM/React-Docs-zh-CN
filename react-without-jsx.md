@@ -1,4 +1,4 @@
-> 此文章是翻译[React Without JSX](https://facebook.github.io/react/docs/react-without-jsx.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[React Without JSX](https://facebook.github.io/react/docs/react-without-jsx.html)这篇React（版本v15.5.4）官方文档。
 
 ## React Without JSX
 
@@ -34,7 +34,7 @@ ReactDOM.render(
 ```
 如果你想要看看JSX 如何改变成JavaScript 的更多例子，你可以在[thisonline Babel compiler](https://babeljs.io/repl/#?babili=false&evaluate=true&lineWrap=false&presets=es2015%2Creact%2Cstage-0) 上尝试。
 
-component 可以是提供一个字符串，可以提供一个`React.Component` 子类，可以是一个纯函数为无状态component.
+component 可以是提供一个字符串，也可以提供一个`React.Component` 子类，可以是一个纯函数的无状态component.
 
 如果你已经对写`React.createElement` 感到非常厌倦了，一个通用的方式是赋给一个简写：
 ```jsx
@@ -46,3 +46,5 @@ ReactDOM.render(
 );
 ```
 如果你使用`React.createElement` 的简写形式，它几乎和使用不带JSX 的React 一样方便。
+
+或者，你可以参考社区项目，例如`react-hyperscript`和`hyperscript-helpers`，它们提供更简洁的语法。
