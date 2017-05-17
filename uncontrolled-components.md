@@ -1,4 +1,4 @@
-> 此文章是翻译[Uncontrolled Components](https://facebook.github.io/react/docs/uncontrolled-components.html))这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[Uncontrolled Components](https://facebook.github.io/react/docs/uncontrolled-components.html))这篇React（版本v15.5.4）官方文档。
 
 ## Uncontrolled Components
 
@@ -33,6 +33,8 @@ class NameForm extends Component {
   }
 }
 ```
+[在CodePen 上尝试](https://codepen.io/gaearon/pen/WooRWa?editors=0010)
+
 由于uncontrolled component 在DOM 中保存the source of truth，在使用uncontrolled components 中，合并React 和non-React 代码有时是比较容易。如果你想要快速和肮脏，你可以使用少量代码。然后，你通常使用的是controlled components。
 
 如果在特殊场景下你仍然不清楚使用那种类型的component，这篇[this article on controlled versus uncontrolled inputs](http://goshakkk.name/controlled-vs-uncontrolled-inputs-react/)文章可能对你有帮助。
