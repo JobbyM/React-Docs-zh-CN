@@ -1,6 +1,8 @@
-> 此文章是翻译[Context](https://facebook.github.io/react/docs/context.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[Context](https://facebook.github.io/react/docs/context.html)这篇React（版本v15.5.4）官方文档。
 
 ## Context
+
+> 注意：从React v15.5起，`React.PropTypes`帮助器已被弃用，我们建议使用[`prop-types`库](https://www.npmjs.com/package/prop-types)来定义`contextTypes`。
 
 在React 中，很容易追踪数据通过你的React components 的流动。但你察看一个comopnent 时，你可以看到那一个props 被传入，这使得你的应用很容易推理。
 
@@ -10,11 +12,11 @@
 
 绝大多数应用不需要使用context。
 
-如果你想要你的应用是健壮的，就不能使用context。这是一个实验性API并且它很可能在未来React 的发布版本中取消。
+如果你想要你的应用是健壮的，就不能使用context。这是一个实验性API并且它很可能在未来React 的发布版本中改变（break）。
 
 如果你不熟悉像[Redux](https://github.com/reactjs/redux) 和[MobX](https://github.com/mobxjs/mobx) 这种state 管理库，不要使用context。在许多实际应用中，这些库以及和React 绑定是一个很好的管理和许多components 相关的state。更有可能的是Redux 和context 相比是一个很好的解决方案。
 
-如果你不是一个 经验丰富的React 开发者，不要使用context。这通常有只需要使用props 和state 就能实现这些功能。
+如果你不是一个经验丰富的React 开发者，不要使用context。这通常有只需要使用props 和state 就能实现这些功能。
 
 如果你坚持使用context 而不管这些警告，尝试将你使用的context 独立在一小块区域中避免直接使用这些context API以防止当这些API 改变后便于升级。
 
@@ -52,7 +54,7 @@ class MessageList extends Component {
   }
 }
 ```
-在这个例子中，我们以适当的方式 手动得传入一个`color` props 到 `Button` 和`Message` components 中。使用context，我们可以通过这个树自动传入：
+在这个例子中，我们以适当的方式手动得传入一个`color` props 到 `Button` 和`Message` components 中。使用context，我们可以通过这个树自动传入：
 ```jsx
 class Button extends Component {
   render() {
@@ -65,7 +67,7 @@ class Button extends Component {
 }
 
 Button.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 }
 
 class Message extends Component {
@@ -83,7 +85,6 @@ class MessageList extends Component {
     return {color: "purple"}
   }
   render() {
-    const color = "purple";
     const children = this.props.messages.map((message) =>
       <Message text={message.text} />
     );
@@ -92,17 +93,19 @@ class MessageList extends Component {
 }
 
 MessageList.childContextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 }
-````
+```
 通过添加`childContextTypes` 和`getChildContext` 到`MessageList`（context 提供者），React 可以自动向下传递信息并且子树中的任何components （这个例子中的`Button`）都可以通过定义`contextTypes` 去访问它。  
 
 如果`contextTypes` 没有被定义，那么这个`context` 将是一个空对象。
 
 ### Parent-Child Coupling
 
-Context 也运行你创建一个父子通信的API。例如，[React Router V4](https://react-router.now.sh/basic) 就是使用这种方式的一个库：
+Context 也允许你创建一个父子通信的API。例如，[React Router V4](https://reacttraining.com/react-router) 就是使用这种方式的一个库：
 ```jsx
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 const BasicExample = () => (
   <Router>
     <div>
@@ -114,14 +117,14 @@ const BasicExample = () => (
 
       <hr/>
 
-      <Match exactly pattern="/" component={Home} />
-      <Match pattern="/about" component={About} />
-      <Match pattern="/topics" component={Topics} />
+      <Route exactly pattern="/" component={Home} />
+      <Route pattern="/about" component={About} />
+      <Route pattern="/topics" component={Topics} />
     </div>
   </Router>
 )
 ```
-从`Router` componet 向下传递一些信息，每一个`Link` 和`Match` 都可以沟通回到到包含容器`Router`。
+从`Router` componet 向下传递一些信息，每一个`Link` 和`Route` 都可以回传到包含容器`Router`。
 
 在你使用类似的API 构建components 之前，考虑是否有一个更加的替代方案。例如，如果你喜欢你可以将整个React component 作为props 传入。
 
@@ -138,14 +141,16 @@ const BasicExample = () => (
 
 ### Referencing Context in Stateless Functional Components
 
-无状态的功能性components 也可以引用`context` 如果`contextTypes` 作为函数的属性被定义。下面代码展示一个无状态的功能性 `Button` component 。
+无状态的functional components 也可以引用`context` 如果`contextTypes` 作为函数的属性被定义。下面代码展示一个无状态的functional `Button` component 。
 ```jsx
+const PropTypes = require('prop-types');
+
 const Button = ({children}, context) =>
   <button style={{background: context.color}}>
     {children}
   </button>
 
-Button.contextTypes = {color: React.PropTypes.string}
+Button.contextTypes = {color: PropTypes.string}
 ```
 
 ### Updating Context
@@ -156,7 +161,9 @@ React 有一个可以更新context 的API，但是它会从根本上造成破坏
 
 当state 和props 改变时，就会调用`getChildContext` 函数。为了更新context 中的数据，使用`this.setState` 触发本地（local）state 更新。这将会产生新的context 并且改变会被子节点收到。
 ```jsx
-class MediaQuery extends Component {
+const PropTypes = require('prop-types');
+
+class MediaQuery extends React.Component {
   constructor(props)
   this.state = {
     type: 'desktop'
@@ -186,7 +193,7 @@ class MediaQuery extends Component {
 }
 
 MediaQuery.childContextTypes = {
-  type: React.PropTypes.string
+  type: PropTypes.string
 }
 ```
-问题是，如果component 提供context 反生改变，后代使用这个值将不会更新如果中间件的父的`shouldComponentUpdate` 返回false。使用context 这个component 是完全失去控制，所以这里基本没有办法依赖更新context。[这篇文章](https://medium.com/@mweststrate/how-to-safely-use-react-context-b7e343eff076) 解释了为什么这是一个问题并且你怎幺避免它。
+问题是，如果component 提供context 反生改变，后代使用这个值将不会更新如果中间件的父的`shouldComponentUpdate` 返回false。使用context 这个component 是完全失去控制，所以这里基本没有办法依赖更新context。[这篇文章](https://medium.com/@mweststrate/how-to-safely-use-react-context-b7e343eff076) 解释了为什么这是一个问题并且你怎么避免它。
