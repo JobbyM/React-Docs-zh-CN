@@ -1,4 +1,4 @@
-> 此文章是翻译[Higher-Order Components](https://facebook.github.io/react/docs/higher-order-components.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[Higher-Order Components](https://facebook.github.io/react/docs/higher-order-components.html)这篇React（版本v15.5.4）官方文档。
 
 ## Higer-Order Components
 
@@ -12,7 +12,7 @@ const EnhancedComponent = higerOrderComponent(WrappedComponent);
 
 鉴于component 转换props 为UI，高阶component 转化一个component 为另一个component。
 
-HOC 在React 第三方库中是常见的，就像Redux 的[connect]() 和Relay 的[createContainer]()。
+HOC 在React 第三方库中是常见的，就像Redux 的[connect](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 和Relay 的[createContainer](https://facebook.github.io/relay/docs/api-reference-relay.html#createcontainer-static-method)。
 
 在文档中，我们将讨论高阶component 为什么有用，以及你自己如何去写。
 
@@ -25,7 +25,7 @@ components 是React 中主要的复用代码单位。然而，你会发现有些
 
 比如说你有一个`CommentList` component 订阅外部数据源来渲染一个评论列表：
 ```jsx
-class CommentList extends Component {
+class CommentList extends React.Component {
   constructor(){
     super()
     this.handleChange = this.handleChange.bind(this)
@@ -64,9 +64,9 @@ class CommentList extends Component {
 }
 
 ```
-后来，你写了一个订阅单个博客文章的component，它遵循类似的模式：
+之后，你写了一个订阅单个博客文章的component，它遵循类似的模式：
 ```jsx
-class BlogPost extends Component {
+class BlogPost extends React.Component {
   constructor(){
     super()
     this.handleChange = this.handleChange.bind(this)
@@ -90,10 +90,9 @@ class BlogPost extends Component {
   }
 
   render(){
-    return <BlogPost blogPost={this.state.blogPost} />
+    return <TextBlock blogPost={this.state.blogPost} />
   }
 }
-
 ```
 `CommentList` 和`BlogPost` 不完全相同--它们调用`DataSource` 的不同方法，并且它们渲染不同的输出。但是它们大量的实现是相同的：
 
@@ -103,7 +102,7 @@ class BlogPost extends Component {
 
 你可以设想在一个大的应用中，订阅`DataSource` 以及调用`setState` 相同的模式将会一次又一次发生。我们想要抽象一个允许我们定义这个逻辑在一个地方并且在多个component 中共享它们。这就是高阶component 擅长的地方。
 
-我们可以写一个函数来创建components，像`CommentList` 和`BlogPost`，订阅`DataSource`。这个函数接受一个将订阅的数据作为prop 的子component，将其作为其中的一个参数。让我们来调用这个`withSubscription` 函数：
+我们可以写一个函数来创建components，像`CommentList` 和`BlogPost`，订阅`DataSource`。这个函数接受一个子component，将其作为参数，该子component 接受订阅的数据作为props。让我们来调用这个`withSubscription` 函数：
 ```jsx
 const CommentListWithSubscription = withSubscription(
   CommentList,
@@ -122,7 +121,7 @@ const BlogPostWithSubscription = withSubscription(
 // This function takes a componet...
 function withSubscription(WrappedComponent, selectData){
   // ...and  returns another component...
-  return class extends Component {
+  return class extends React.Component {
     constructor(props){
       super(props)
       this.handleChange = this.handleChange.bind(this)
@@ -158,9 +157,9 @@ function withSubscription(WrappedComponent, selectData){
 
 这就是它！这个包裹的component 接受这个容器的所有的props，通过一个新的prop，`data`，它被用作渲染输出。HOC 不管这个数据怎样或为什么被使用，以及这个包裹的component 也不关心这个数据从那里来。
 
-因为`withSubscription` 是一个普通的函数，你可以添加许多或一些你喜欢的参数。例如，你可以希望是`data` 的名称可以配置，以便进一步将HCO 从包裹的component 中独立出来。或者你可以价接受一个配置的`shouldComponentUpdate` 参数，或者一个配置数据源的参数。这些都是可能的，因为HOC 已经完全控制如何定义component。
+因为`withSubscription` 是一个普通的函数，你可以添加许多或一些你喜欢的参数。例如，你可以希望是`data` 的名称可以配置，以便进一步将HOC 从包裹的component 中独立出来。或者你可以价接受一个配置的`shouldComponentUpdate` 参数，或者一个配置数据源的参数。这些都是可能的，因为HOC 已经完全控制如何定义component。
 
-像components，`withSubsription` 和包裹的component 的联系是全部基于props 的。这使得交换一个HOC 同另一个不同的很简单，只要它们提供相同的props 给包裹的component。这可能是有用的，例如如果改变数据获取库。
+像components，`withSubsription` 和包裹的component 的联系是全部基于props（props-based）的。这使得交换一个HOC 同另一个不同的很简单，只要它们提供相同的props 给包裹的component。这可能是有用的，例如如果改变数据获取库。
 
 ## Don't Mutable the Original Component. Use Composition.
 
@@ -179,14 +178,14 @@ function logProps(InputComponent){
 // EnhancedComponent will log whenever props are received
 const EnhancedComponent = logProps(InputComponent);
 ```
-这有几个问题。一个是这个输入component 不能从这个赠其nagcomponent 中分离复用。更严峻的是，如果你应用另一个HOC 到`EnhancedComponent` 上也会改变`componentWillReceiveProps`，第一个HOC 的功能将被重写！HOC 也不能通过function component 工作，他还没有生命周期方法。
+这有几个问题。一个是这个输入component 不能从这个增强component 中分离复用。更严峻的是，如果你应用另一个HOC 到`EnhancedComponent` 上也会改变`componentWillReceiveProps`，第一个HOC 的功能将被重写！这个HOC 也不能适用于没有生命周期方法functional component。
 
-更改HOC 是一个有漏洞的抽象--消费者必须知道它们怎样实现来避免和气球HOC 产生冲突。
+更改HOC 是一个有漏洞的抽象--消费者必须知道它们怎样实现来避免和其他HOC 产生冲突。
 
 HOC 应该使用组合，通过包裹输入component 在一个容器component 中，而不是改变：
 ```jsx
 function logProps(WrappedComponent){
-  return class exntends Component {
+  return class exntends React.Component {
     componentWillReceiveProps(nextProps){
       console.log('Current props:', this.props);
       console.log('Next props:', nextProps);
@@ -198,9 +197,9 @@ function logProps(WrappedComponent){
   }
 }
 ```
-HOC 同改变版本有相同的功能从而避免潜在的崩溃。它同类和函数component 的工作原理相同。并且因为它是纯函数，它可以通过其它HOC 甚至是自己组合。
+HOC 同突变版本（译者注：即上例中的logProps）有相同的功能，同时避免潜在的崩溃。它同class和functional component 的工作原理相同。并且因为它是纯函数，它可以通过其它HOC 甚至是自己组合。
 
-你可能已经注意到HOC 同**容器 components** 的模式相似。容器component 是在高层和底层concerns之间分离责任的策略的一部分。容器管理事情像订阅和state，并且传递props 到component 控制系那个渲染UI 的事情。HOC 使用容器作为它们实现的部分。你可以认为HOC 作为参数化容器component 定义。
+你可能已经注意到HOC 同 **容器 components** 的模式相似。容器component 是在高层和底层concerns之间分离责任的策略的一部分。容器管理事情像订阅和state，并且传递props 到component 控制渲染UI 的事情。HOC 使用容器作为它们实现的部分。你可以认为HOC 作为参数化容器component 定义。
 
 ## Convention: Pass Unrelated Props Through to the Wrapped Component
 
@@ -234,7 +233,7 @@ render(){
 ```jsx
 const NavbarWithRouter = withRouter(Navbar)
 ```
-通常，HOC 接受二外的参数。在这个来自Relay的例子，一个配置对象被用来配置component 的数据依赖：
+通常，HOC 接受额外的参数。在这个来自Relay的例子，一个配置对象被用来配置component 的数据依赖：
 ```jsx
 const CommentWithRelay = Relay.createContainer(Comment, config)
 ```
@@ -253,7 +252,7 @@ const ConnectedComment = enhance(CommentList)
 ```
 换句话说，`connect` 是一个高阶函数，它返回一个高阶component！
 
-这种形式可能看上去是困惑的或不必要的，但是它有一个有用的属性。单参数HOC 喜欢通过`connect` 函数有这个签名`Component => Component` 的返回。函数的输出类型同它的输入类型相同对组合在一起非常简单的。
+这种形式可能看上去是困惑的或不必要的，但是它有一个有用的属性。单参数HOC ，如`connect` 函数返回的HOC具有签名`Component => Component`。输出类型同其输入类型相同的函数很容易组合在一起。
 ```jsx
 // Instead of doing this...
 const EnhancedComponent = connect(commentSelector)(withRouter(WrappedComponent))
@@ -269,7 +268,7 @@ const EnhancedComponent = enhance(WrappedComponent)
 ```
 （这个相同的属性也允许`connect` 和其它的增强样式HOC 被用作装饰器，一个实验性的JavaScript 提案。）
 
-`compose` 工具函数被许多第三方库提供，包括loadsh（像[`lodash.flowRight`](https://lodash.com/docs/#flowRight)，[Redux](http://redux.js.org/docs/api/compose.html)和[Rambda](http://ramdajs.com/docs/#compose)。
+`compose` 工具函数被许多第三方库提供，包括loadsh（像[`lodash.flowRight`](https://lodash.com/docs/#flowRight)，[Redux](http://redux.js.org/docs/api/compose.html)和[Ramda](http://ramdajs.com/docs/#compose)。
 
 ## Convention: Wrap the Display Name for Easy Debugging
 
@@ -290,7 +289,7 @@ function getDisplayName(WrappedComponent){
 
 ## Caveats
 
-高阶component 有一些警告，它们不是立即明显的，如果你是一个React 新手。
+高阶component 有一些警告，如果你是一个React 新手，它们不是立即明显的，。
 
 ### Don't Use HOCs Inside the render Method
 
@@ -383,4 +382,4 @@ const EnhancedField = enhance(Field)
 // Now you can call imperative methods
 this.inputEl.foucs()
 ```
-这不是一个完美的解决方案。我们更希望refs 保留一个库concern，恶如表示要求你手动控制它们。我们正在研究一些方法去解决这个问题，以至于HOC 不需要观察。
+这不是一个完美的解决方案。我们更希望refs 保留一个库concern，恶如表示要求你手动控制它们。我们正在研究一些方法去解决这个问题，以便使用HOC 是不需要观察。
