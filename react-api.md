@@ -1,4 +1,4 @@
-> 此文章是翻译[React Top-Level API](https://facebook.github.io/react/docs/react-api.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[React Top-Level API](https://facebook.github.io/react/docs/react-api.html)这篇React（版本v15.5.4）官方文档。
 
 ## React Top-Level API
 
@@ -14,10 +14,7 @@ React components 让你将UI 分成独立的、可复用的块，并且独立的
 * [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent)
 
 
-如果你不使用ES6 classes，你也可以使用下面这个帮助类（helper）来替代。
-
-* [createClass()](https://facebook.github.io/react/docs/react-api.html#createclass)
-
+如果你不使用ES6 classes，你也可以使用下面这个`create-react-class`来替代。查看[Using React without ES6](https://facebook.github.io/react/docs/react-without-es6.html)了解更多。
 
 ### Creating React Elements
 
@@ -37,46 +34,13 @@ React components 让你将UI 分成独立的、可复用的块，并且独立的
 * [isValidElement()](https://facebook.github.io/react/docs/react-api.html#isvalidelement)
 * [React.Children](https://facebook.github.io/react/docs/react-api.html#react.children)
 
-
-### Typechecking with PropTypes
-
-你可以使用`React.PropTypes` 来为component 的props 做类型检测。
-
-* [React.PropTypes](https://facebook.github.io/react/docs/react-api.html#react.proptypes)
-* [React.PropTypes.array](https://facebook.github.io/react/docs/react-api.html#react.proptypes.array)
-* [React.PropTypes.bool](https://facebook.github.io/react/docs/react-api.html#react.proptypes.bool)
-* [React.PropTypes.func](https://facebook.github.io/react/docs/react-api.html#react.proptypes.func)
-* [React.PropTypes. number](https://facebook.github.io/react/docs/react-api.html#react.proptypes.number)
-* [React.PropTypes.object](https://facebook.github.io/react/docs/react-api.html#react.proptypes.object)
-* [React.PropTypes.string](https://facebook.github.io/react/docs/react-api.html#react.proptypes.string)
-* [React.PropTypes.symbol](https://facebook.github.io/react/docs/react-api.html#react.proptypes.symbol)
-* [React.PropTypes.node](https://facebook.github.io/react/docs/react-api.html#react.proptypes.node)
-* [React.PropTypes.element](https://facebook.github.io/react/docs/react-api.html#react.proptypes.element)
-* [React.PropTypes.instanceOf()](https://facebook.github.io/react/docs/react-api.html#react.proptypes.instanceof)
-* [React.PropTypes.oneOf()](https://facebook.github.io/react/docs/react-api.html#react.proptypes.oneof)
-* [React.PropTypes.oneOfType](https://facebook.github.io/react/docs/react-api.html#react.proptypes.oneoftype)
-* [React.PropTypes.arrayOf](https://facebook.github.io/react/docs/react-api.html#react.proptypes.arrayof)
-* [React.PropTypes.objectOf](https://facebook.github.io/react/docs/react-api.html#react.proptypes.objectof)
-* [React.PropTypes.shape()](https://facebook.github.io/react/docs/react-api.html#react.proptypes.shape)
-* [React.PropTypes.any](https://facebook.github.io/react/docs/react-api.html#react.proptypes.any)
-
-验证器（Validator）对待props 默认是可选的。你可以使用`isReuqired` 去确认警告（warning）的显示如果prop 没有被提供。
-
-* [isRequired](https://facebook.github.io/react/docs/react-api.html#isrequired)
-
-### Add-Ons
-
-如果你使用[react-with-addons.js](https://facebook.github.io/react/docs/addons.html)，React Add-Ons 将通过`React.addons` 来使用。
-
-* [React.addons](https://facebook.github.io/react/docs/react-api.html#react.addons)
-
 ## Reference
 
 ### React.Component
 
-`React.Component` 是React components 的基类（base class），当使用[ES6 classes](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes) 来定义。
+`React.Component` 是React components 的基类（base class），使用[ES6 classes](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes) 来定义。
 ```jsx
-class Greeting extends Component {
+class Greeting extends React.Component {
   render(){
     return <h1>Hello, {this.props.name}</h1>
   }
@@ -120,7 +84,7 @@ React.createElement(
 ```
 创建并返回一个新的给定类型的[React element](https://facebook.github.io/react/docs/rendering-elements.html)。这个类型参数要么是一个标签名字字符串（像`div` 或者是`span`），要么是一个[React component](https://facebook.github.io/react/docs/components-and-props.html) 类型（类或者是函数）。
 
-`React.DOM` 提供了一个方便的包装为DOM component 的`React.createElement()`的方法。例如，`React.DOM.a(...)` 是一个`React.createElement('a',...)` 的方法包装。它们都被认为是合法的，并且我们孤立你使用JSX，而不是直接使用`React.createElement()`。
+`React.DOM` 提供了一个方便的包装为DOM component 的`React.createElement()`的方法。例如，`React.DOM.a(...)` 是一个`React.createElement('a',...)` 的方法包装。它们都被认为是历史遗留的，并且我们鼓励你使用JSX，而不是直接使用`React.createElement()`。
 
 使用[JSX](https://facebook.github.io/react/docs/introducing-jsx.html) 编写的代码可以被转成使用`React.createElement()` 。你可以不必显示地直接、调用`React.createElement()`如果你使用JSX。参考[React Without JSX](https://facebook.github.io/react/docs/react-without-jsx.html) 获取更多信息。
 
@@ -133,7 +97,7 @@ React.cloneElement(
   [...children]
 )
 ```
-克隆并返回一个使用`element` 开始的的React element。这个将会有有一个原始的element 的props 和新props 浅合并的element。新的子节点将会替换已经存在的子节点。来自原始element 的`key` 和`ref`将会被保留。
+克隆并返回一个使用`element` 开始的新的React element。这个将会有一个原始的element 的props 和新props 浅合并的element。新的子节点将会替换已经存在的子节点。来自原始element 的`key` 和`ref`将会被保留。
 
 `React.cloneElement()` 几乎等同于：
 ```jsx
@@ -150,7 +114,7 @@ React.createFactory(type)
 ```
 返回一个生成指定类型的React elements的函数。像[React.createElement](https://facebook.github.io/react/docs/react-api.html#createElement)，这个类型参数要么是一个标签名字字符串（像`div` 或者是`span`），要么是一个[React component](https://facebook.github.io/react/docs/components-and-props.html) 类型（类或者是函数）。
 
-这个帮助类被认为是合法的，我们滚里你要么使用JSX 恶如表示直接使用`React.createElement()`替代。
+这个帮助类被认为是历史遗留的，我们鼓励你要么使用JSX ，要么直接使用`React.createElement()`替代。
 
 你将不必显示地直接调用`React.createFactory()`如果你使用JSX。参考[React Without JSX](https://facebook.github.io/react/docs/react-without-jsx.html) 获取更多信息。
 
@@ -170,7 +134,7 @@ React.isValidElement(object)
 ```jsx
 React.Children.map(children, function[(thisArg)])
 ```
-在每一个直接子节点包含`children` 使用`this` 设置`thisArg`。如果`children` 是一个关键帧或数组，它将被改变：函数永远不会作为对象传入。如果节点是`null` 或`undefined`，返回一个`null` 或者是`undefined` 而不是一个数组。
+在每一个直接子节点包含`children` 使用`this` 设置`thisArg`。如果`children` 是一个关键帧或数组，它将被遍历：该函数永远不会传递容器对象。如果节点是`null` 或`undefined`，返回一个`null` 或者是`undefined` 而不是一个数组。
 
 ### React.Chidren.forEach
 
@@ -179,11 +143,10 @@ React.Children.forEach(children, function[(thisArg)])
 ```
 像[React.Children.map()](https://facebook.github.io/react/docs/react-api.html#react.children.map)但是不会返回一个数组。
 
-
 ### React.Children.count
 
 ```jsx
-Children.count(children)。
+React.Children.count(children)。
 ```
 返回`children` 中的components 个数，等于传入`map` 或`forEach` 中回调函数的调用次数。
 
@@ -203,184 +166,3 @@ React.Children.toArray(children)
 
 > **Note：**
 `React.Children.toArray` 改变键值去防止嵌套数组的语法当扁平化子节点列表。也就是，在返回数组中`toArray` 前置每一个键，所以每一个element 键的作用范围是包含它的输入数组。
-
-### React.PropTypes
-
-`React.PropTypes` 导出一系列的验证器它们可以在一个component 的`propTypes` 对象去验证被出入你的component 中的props。
-
-获取关于`PropTypes` 的更多信息，请看[Typechecking with PropTypes](https://facebook.github.io/react/docs/typechecking-with-proptypes.html)。
-
-### React.PropTypes.array
-
-```jsx
-React.PropTypes.array
-```
-验证prop 是一个原生的JavaScript 数组。
-
-### React.PropTypes.bool
-
-```jsx
-React.PropTypes.bool
-```
-验证prop 是一个原生的JavaScript 布尔值。
-
-### React.PropTypes.func
-
-```jsx
-React.PropTypes.func
-```
-验证prop 是一个JavaScript 函数。
-
-### React.PropTypes.number
-
-```jsx
-React.PropTypes.number
-```
-验证prop 是一个原生的JavaScript 数值。
-
-### React.PropTypes.object
-
-```jsx
-React.PropTypes.object
-```
-验证prop 是一个JavaScript 对象。
-
-### React.PropTypes.string
-
-```jsx
-React.PropTypes.string
-```
-验证prop 是一个原生的JavaScript 字符串。
-
-### React.PropTypes.symbol
-
-```jsx
-React.PropTypes.symbol
-```
-验证prop 是一个JavaScript symbol。
-
-### React.PropTypes.node
-
-```jsx
-React.PropTypes.node
-```
-验证prop 是一个原生的JavaScript 数组。
-
-### React.PropTypes.array
-
-```jsx
-React.PropTypes.array
-```
-验证prop 是一个任何可以被渲染的东西：数字，字符串，elements 或者是数组（片段）包含这些类型。
-
-### React.PropTypes.element
-
-```jsx
-React.PropTypes.element
-```
-验证prop 是一个React element。
-
-### React.PropTypes.instanceOf()
-
-```jsx
-React.PropTypes.instanceOf(class)
-```
-验证prop 是一个类的实例。使用JavaScript 的`instanceof` 操作符。
-
-### React.PropTypes.oneOf()
-
-```jsx
-React.PropTypes.oneOf(arrayOfValue)
-```
-验证prop 被限制为一个特殊的值通过将其作为一个枚举。
-```jsx
-MyComponent.propTypes = {
-     optionalEnum: React.PropTypes.oneOf(['News', 'Photos']),
-}
-```
-
-### React.PropTypes.oneOfType()
-
-```jsx
-React.PropTypes.oneOfType(arrayOfPropTypes)
-```
-验证prop 是一个对象可以是许多类型中的一个。
-```jsx
-MyComponent.propTypes = {
-  optionalUnion: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-    React.PropTypes.instanceOf(Message)
-  ]),
-}
-
-```
-
-### React.PropTypes.arrayOf()
-
-```jsx
-React.PropTypes.arrayOf(propType)
-```
-验证prop 是一个确定类型的数组 。
-```jsx
-MyComponent.propTypes = {
-  optionalArrayOf: React.PropTypes.arrayOf(React.PropTypes.number),
-}
-```
-
-### React.PropTypes.objectOf()
-
-```jsx
-React.PropTypes.objectOf(propType)
-```
-验证prop 是一个具有某种类型属性值的对象。
-```jsx
-MyComponent.propTypes = {
-  optionalObjectOf: React.PropTypes.objectOf(React.PropTypes.number),
-}
-```
-
-### React.PropTypes.shape()
-
-```jsx
-React.PropTypes.shape(object)
-```
-验证prop 是一个特定形状的对象。
-```jsx
-MyComponent.propTypes = {
-  optionalObjectWithShape: React.PropTypes.shape({
-    color: React.PropTypes.string,
-    fontSize: React.PropTypes.number
-  }),
-}
-```
-
-### React.PropTypes.any()
-
-```jsx
-React.PropTypes.any
-```
-验证prop 是一个任意数据类型的值。通过后面跟着`isRequired`
-```jsx
-MyComponent.propTypes = {
-  requiredAny: React.PropTypes.any.isRequired,
-}
-```
-
-### isRequired
-
-```jsx
-propType.isRequired
-```
-你可以使用`isRequired` 去链式上述任何验证器去确保警告显示如果prop 没有被提供。
-```jsx
-MyComponent.propTypes = {
-  requiredFunc: React.PropTypes.func.isRequired,
-}
-```
-
-### React.addons
-```jsx
-React.addons
-```
-当使用[react-with-addons.js](https://facebook.github.io/react/docs/addons.html)`React.addons` 导出一系列add-ons。
