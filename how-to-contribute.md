@@ -1,4 +1,4 @@
-> 此文章是翻译[How to Contribute](https://facebook.github.io/react/contributing/how-to-contribute.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[How to Contribute](https://facebook.github.io/react/contributing/how-to-contribute.html)这篇React（版本v15.5.4）官方文档。
 
 ## How to Contribute
 
@@ -7,7 +7,7 @@ React 是Facebook 的第一个开源项目，它正在积极发展并且在迁�
 
 ### [Code of Conduct](https://code.facebook.com/codeofconduct)
 
-Facebook 已经采纳了我们希望项目参与者坚持的Code of Conduct。请阅读[全文（the full text）](https://code.facebook.com/codeofconduct)，这样你就可以了解什么行为将不会被允许。
+Facebook 已经采纳Code of Conduct，我们希望项目参与者遵守。请阅读[全文（the full text）](https://code.facebook.com/codeofconduct)，这样你就可以了解什么行为将不会被允许。
 
 ### Open Development
 
@@ -17,7 +17,7 @@ Facebook 已经采纳了我们希望项目参与者坚持的Code of Conduct。�
 
 我们将尽最大努力保持[`master` branch](https://github.com/facebook/react/tree/master) 良好状态，通过每一次测试都通过。但是为了快速移动（move），我们将使API 改变，你的应用程序可能不会兼容。我们推荐你使用[React 的最新稳定版本](https://facebook.github.io/react/downloads.html)。
 
-如果你发出一个pull request，请不要在`master` 分支上。我们分别为主版本保留稳定分支，但是我们不直接接受pull request。相反，我们从master 摘樱桃（cherry-pick）不破坏（non-breaking）改变到最新的稳定主版本。
+如果你发出一个pull request，请在`master` 分支上进行。我们分别为主版本保留稳定分支，但是我们不直接接受pull request。相反，我们从master 摘樱桃（cherry-pick）不破坏（non-breaking）改变到最新的稳定主版本。
 
 ### Semantic Versioning
 
@@ -39,7 +39,7 @@ React 遵循[语义化版本（sematic versioning）](http://semver.org/)。我�
 
 #### Security Bugs
 
-Facebook 有一个安全漏洞的安全泄漏的奖金项目。考虑到这一点，请不要，请不要写到公共问题中；通过该页概述的过程。
+Facebook 有一个安全漏洞的安全泄漏的奖金项目。考虑到这一点，请不要提出公共问题；通过该页概述的过程。
 
 ### How to Get in Touch
 
@@ -50,13 +50,13 @@ Facebook 有一个安全漏洞的安全泄漏的奖金项目。考虑到这一�
 
 ### Proposing a Change
 
-如果你打算更改公共的API，或者为实现任何重大的改变，我们推荐你[提交一个问题（filing an issue）](https://github.com/facebook/react/issues/new)。在你投入大量努力之前，先让我们对你的建议达成一致。
+如果你打算更改公共的API，或者为实现任何重大的改变，我们推荐你[提交一个问题（filing an issue）](https://github.com/facebook/react/issues/new)。这使我们能够就你的建议达成协议，然后再付出巨大努力。
 
-如果你只是修复一个bug，提交关于pull request 是否正确的方式，但是我们仍推荐你提交一个问题，描述你修复的问题。这是有用的，假如我们不接收这个具体的修复（specific fix）但是想要跟踪这个问题。
+如果你只是修复一个bug，可以立即提交关于pull request ，但是我们仍推荐你提交一个问题，描述你修复的问题。这是有用的，假如我们不接收这个具体的修复（specific fix）但是想要跟踪这个问题。
 
 ### Your First Pull Request
 
-工作在你的第一个Pull Request？你能够从这免费的视频系列：[How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)学习。
+这是你的第一个Pull Request？你能够从这免费的视频系列：[How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)学习。
 
 为了帮助你从实践中学习，并且让你熟悉我们的贡献构成，我们有一系列的[good first bugs](https://github.com/facebook/react/labels/good%20first%20bug)，它名包括相对容易去解决的bug。这是一个开始的伟大的地方。
 
@@ -73,10 +73,12 @@ Facebook 有一个安全漏洞的安全泄漏的奖金项目。考虑到这一�
 1. 派生[the repository](https://github.com/facebook/react)，并且从`master` 中创建你的分支。
 2. 如果你已经添加了代码，这些代码应该被测试，添加测试！
 3. 如果你已经改变了APIs，更新这个文档。
-4. 确保测试套件通过（`npm test`）。
+4. 确保测试组件通过（`npm test`）。
 5. 确保你的代码lints（`npm run lint`）。
-6. 运行[Flow](https://flowtype.org/) 类型检测（`npm run flow`）。
-7. 如果你还没有，完成CLA。
+6. 使用[prettier](https://github.com/prettier/prettier)（`npm run prettier`）格式化你的代码。
+7. 运行[Flow](https://flowtype.org/) 类型检测（`npm run flow`）。
+8. 如果你添加或删除任何测试，请在提交pull request之前运行`./scripts/fiber/record-tests`，并提交所得到的更改
+9. 如果你还没有，完成CLA。
 
 ### Contributor License Agreement(CLA)
 
@@ -102,7 +104,7 @@ Facebook 有一个安全漏洞的安全泄漏的奖金项目。考虑到这一�
 * `npm run flow` 运行[Flow](https://flowtype.org/) 类型检测。
 * `npm run build` 创建一个所有包的`build` 文件夹。
 
-我们推荐运行`npm test`（获取它的变量上面）去确保你不会引入任何回退，当你工作在你的改变上。然而，它可以被掌握去试验你的React 构建在一个真实的项目中。
+我们推荐运行`npm test`（或者上面它的变量）去确保你不会引入任何回退，当你工作在你的改变上。然而，它可以被掌握去试验你的React 构建在一个真实的项目中。
 
 首先，运行`npm run build` 。这将会生产预构建插件在`build` 文件夹，以及在`build/package` 中的准备的npm 包。
 
@@ -122,7 +124,7 @@ npm link ~/path_to_your_react_clone/build/packages/react-dom
 
 我们linter 将会捕获存在与你的代码中大多数的样式问题。你可以通过简单的运行`npm run lint` 去查看你的代码样式的状态。
 
-然而，仍然有一些linter 不能找到一些样式。如果你不缺席呢这些事，查看[Aribnb's Style Guide](https://github.com/airbnb/javascript) 将会给你一个正确的方向。
+然而，仍然有一些linter 不能找到一些样式。如果你确认这些事，查看[Aribnb's Style Guide](https://github.com/airbnb/javascript) 将会给你一个正确的方向。
 
 ### Code Conventions
 
@@ -137,7 +139,7 @@ npm link ~/path_to_your_react_clone/build/packages/react-dom
 
 ### Introductory Video
 
-你可以对观看结合扫如何对React 做贡献的[短视频(26 mins)](https://www.youtube.com/watch?v=wUpPsEcGsg8)感兴趣。
+你可能有兴趣观看这个[短视频(26 mins)](https://www.youtube.com/watch?v=wUpPsEcGsg8)，介绍如何对React 做贡献。
 
 ### Meeting Notes
 
