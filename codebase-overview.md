@@ -1,12 +1,12 @@
-> 此文章是翻译[Codebase Overview](https://facebook.github.io/react/contributing/codebase-overview.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[Codebase Overview](https://facebook.github.io/react/contributing/codebase-overview.html)这篇React（版本v15.5.4）官方文档。
 
 ## Codebase Overview
 
 本节将概要介绍React 代码库的组织，约定已经实现。
 
-如果你想要[contribute to React](https://facebook.github.io/react/contributing/how-to-contribute.html)， 我们希望这个指南能够帮你更舒服地改变。
+如果你想要[contribute to React](https://facebook.github.io/react/contributing/how-to-contribute.html)， 我们希望这个指南能够帮你更舒服地进行改变。
 
-我们不一定推荐React 应用中的任何约定。它们中的多数是由于历史原因存在，可能会随着事件而改变。
+我们不一定推荐React 应用中的任何约定。它们中的多数是由于历史原因存在，可能会随着时间而改变。
 
 ### Custom Module System
 
@@ -23,11 +23,11 @@ var setInnerHTML = require('../utils/setInnerHTML');
 // Importing from a deeply nested folder
 var setInnerHTML = require('../client/utils/setInnerHTML');
 ```
-然而，使用Haste需要**所有的文件名都是全局唯一的**。 在React 代码库中，你可以单独的根据它的名字从任何其它模块导入任何模块：
+然而，使用Haste需要 **所有的文件名都是全局唯一的**。 在React 代码库中，你可以单独的根据它的名字从任何其它模块导入任何模块：
 ```jsx
 var setInnerHTML = require('setInnerHTML')
 ```
-Haste 最初是为了像Facebook 这样的大型网站开发的。很容易将文件移动到不同的文件夹并导入它们，而不必担心相对路径。在任何编辑器中的模糊文件搜索总是能定位到正确的位置，由于全局唯一的名称。
+Haste 最初是为了像Facebook 这样的大型网站开发的。很容易将文件移动到不同的文件夹并导入它们，而不必担心相对路径。在任何编辑器中的模糊文件搜索总是能定位到正确的位置，多亏了全局唯一的名称。
 
 React 本身是从Facebook 代码库中提取出来的，使用Haste 是由于历史原因。在未来，我们将可能[迁移React 到使用CommonJS 或ES 模块](https://github.com/facebook/react/issues/6336)来同其它社区对齐。然而，这需要在Facebook 内部的基础设施的改变，所以它不太可能很快发生。
 
@@ -37,7 +37,7 @@ React 本身是从Facebook 代码库中提取出来的，使用Haste 是由于�
 * 当你添加一个新的文件，确保你包括了一个[版权头（license header）](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/src/renderers/dom/client/utils/setInnerHTML.js#L1-L10)。你可以从其它已经存在的文件中复制。版权头总是包含[a line like this](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/src/renderers/dom/client/utils/setInnerHTML.js#L9)。修改它去匹配你创建的文件的名称。
 * 当引入的时候，不要使用相对路径。使用`require('setInnerHTML')` 而不是`require('./setInnerHTML')`。
 
-当我们编译React 为npm，一个脚本复制所有的模块到[一个单一的扁平目录`lib`]()，并且为所有`require()` 的路径中使用`./` 前置。这种方式Node，Browserify，Webpack 已经其它工具都能理解React 构建输出，而不会意识到Haste。
+当我们编译React 为npm，一个脚本复制所有的模块到[一个单一的扁平目录`lib`](https://unpkg.com/react@15/lib/)，并且为所有`require()` 的路径中使用`./` 前置。这种方式Node，Browserify，Webpack 已经其它工具都能理解React 构建输出，而不会意识到Haste。
 
 #### If you're reading React source on GitHub and want to jump to a file, press "t".
 
@@ -49,18 +49,17 @@ React 几乎没有外部依赖。通常，一个`require()` 指出React 自己�
 
 如果你看到一个`require()` 不能响应React 仓库中一个文件，你可以查看一个[fbjs](https://github.com/facebook/fbjs) 的特殊仓库。例如，`require('warning')` 将解析[`warning` module from fbjs](https://github.com/facebook/fbjs/blob/df9047fec0bbd1e64635ae369c045975777cba7c/packages/fbjs/src/__forks__/warning.js)。
 
-[fbjs repository](https://github.com/facebook/fbjs) 存在是因为React 共享一些性[Relay]库的工具，我们保持它们同步。我们不依赖NOde 生态系统的相同的小模块，因为我们想要Facebook 工程师必要时可以修改它们。fbjs 中没有工具被认为是公共的API，它们只是在Facebook 项目中例如React 中使用。
-
+[fbjs repository](https://github.com/facebook/fbjs) 存在是因为React 共享一些像[Relay](https://github.com/facebook/relay)库的工具，我们保持它们同步。我们不依赖NOde 生态系统的相同的小模块，因为我们想要Facebook 工程师必要时可以修改它们。fbjs 中没有工具被认为是公共的API，它们只是在Facebook 项目中例如React 中使用。
 
 ### Top-Level Folders
 
-克隆完[React repository] 之后，你将看到几个顶级文件夹：
+克隆完[React repository](https://github.com/facebook/react) 之后，你将看到几个顶级文件夹：
 
-* [src](https://github.com/facebook/react/tree/master/src) 是React 源代码。**如果你的改变是关于代码的，`src` 将花费你大量的时间。**
-* [docs](https://github.com/facebook/react/tree/master/docs) 是React 的文档网站。当你修改了API，请确保更新相关的Markdown 文件。
-* [examples](https://github.com/facebook/react/tree/master/examples) 包含了几个使用不同构建设置的React 小例子。
-* [packages](https://github.com/facebook/react/tree/master/packages) 包含了React 仓库中所有代码的元数据（像`package.json`），尽管如此，它们的源代码仍然位于[src](https://github.com/facebook/react/tree/master/src)。
-* `build` 是React 构建输出。它不再仓库中但是当你第一次[构建](https://facebook.github.io/react/contributing/how-to-contribute.html#development-workflow) 它，在你的React 副本中将会显示。
+* [`src`](https://github.com/facebook/react/tree/master/src) 是React 源代码。**如果你的改变是关于代码的，`src` 将花费你大量的时间。**
+* [`docs`](https://github.com/facebook/react/tree/master/docs) 是React 的文档网站。当你修改了API，请确保更新相关的Markdown 文件。
+* [`fixtures`](https://github.com/facebook/react/tree/master/fixtures) 包含了为贡献者提供的几个小的React 测试应用。
+* [`packages`](https://github.com/facebook/react/tree/master/packages) 包含了React 仓库中所有代码的元数据（像`package.json`），尽管如此，它们的源代码仍然位于[`src`](https://github.com/facebook/react/tree/master/src)。
+* `build` 是React 构建输出。它不在仓库中但是当你第一次[构建](https://facebook.github.io/react/contributing/how-to-contribute.html#development-workflow) 它，在你的React 副本中将会显示。
 
 还有一些其它的顶级文件夹，但是它们通常用于工具，当你贡献代码时，通常不会遇到它们。
 
@@ -73,11 +72,11 @@ React 几乎没有外部依赖。通常，一个`require()` 指出React 自己�
 
 ### Shared Code
 
-尽管Haste 允许我们导入位于仓库中任意位置的模块，但是我们遵循一个规则去避免循环依赖和其他不愉快的惊喜。按照惯例，一个文件只能岛屿同一个文件夹下或子文件夹下。
+尽管Haste 允许我们导入位于仓库中任意位置的模块，但是我们遵循一个规则去避免循环依赖和其他不愉快的惊喜。按照惯例，一个文件只能引入同一个文件夹下或子文件夹下。
 
-例如，位于[src/renderers/dom/stack/client](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/dom/stack/client) 的文件可以同一文件夹下或上一个文件夹下的其他文件。
+例如，位于[src/renderers/dom/stack/client](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/dom/stack/client) 的文件可以引入同一文件夹下或上一个文件夹下的其他文件。
 
-然而，它们不能导致位于[src/renderers/dom/stack/server](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/dom/stack/server) 的模块，因为它不是[src/renderers/dom/stack/client](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/dom/stack/client) 的子目录。
+然而，它们不能引入位于[src/renderers/dom/stack/server](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/dom/stack/server) 的模块，因为它不是[src/renderers/dom/stack/client](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/dom/stack/client) 的子目录。
 
 这个规则有一个例外。有时我们需要在两组模块之间共享功能。在这种情况下，我们提升共享模块到`shared` 文件夹，此文件夹位于需要依赖它的最靠近的共同的祖先。
 
@@ -85,7 +84,7 @@ React 几乎没有外部依赖。通常，一个`require()` 指出React 自己�
 
 按照同样的逻辑，如果[src/renderers/dom/stack/client](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/dom/stack/client) 需要和[src/renderers/native](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/native) 共享一些工具，这些工具位于[src/renderers/shared](https://github.com/facebook/react/blob/f53854424b33692907234fe7a1f80b888fd80751/src/renderers/shared)。
 
-这个规则不是强制的，但是我们在对一个推送请求复审使将会进行检测。
+这个规则不是强制的，但是我们在对一个pull request复审使将会进行检测。
 
 ### Warnings and Invariants
 
@@ -167,7 +166,7 @@ receiveComponent: function(nextText, transaction) {
 
 我们最近开始引入[Flow](https://flowtype.org/) 检测代码库。使用`@flow` 注释在许可头部的注解的文件正在被检测。
 
-我们接受推送请求[adding Flow annotations to existing code](https://github.com/facebook/react/pull/7600/files)。Flow 注解看上去像这样：
+我们接受pull requests[adding Flow annotations to existing code](https://github.com/facebook/react/pull/7600/files)。Flow 注解看上去像这样：
 ```jsx
 ReactRef.detachRefs = function(
   instance: ReactInstance,
@@ -266,12 +265,11 @@ ReactHostComponent.injection.injectTextComponentClass(ReactNativeTextComponent);
 ```
 在代码库中有多个注入点。在未来，我们打算摆脱动态注入机制并且在构建时静态地绑定所有的块。
 
-
 ### Multiple Packages
 
 React 是一个[monorepo](http://danluu.com/monorepo/)。它的仓库包括多个独立的包，使得它们的改变可以协调在一起，并且文档和问题都位于一个位置。
 
-npm 元数据就像`package.json` 文件位于[packages]() 顶级文件夹。然而，几乎没有真正的代码在这里。
+npm 元数据就像`package.json` 文件位于[packages](https://github.com/facebook/react/tree/master/packages) 顶级文件夹。然而，几乎没有真正的代码在这里。
 
 例如，[packages/react/react.js](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/packages/react/react.js) 重新导出到[src/isomorphic/React.js](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/src/isomorphic/React.js)，真正的npm 入口点。其它的包主要是重复这个模式。所有的重要的代码都位于[src](https://github.com/facebook/react/tree/master/src)。
 
@@ -282,10 +280,8 @@ npm 元数据就像`package.json` 文件位于[packages]() 顶级文件夹。然
 React 的“核心（core）”包括所有的[顶级`React`API](https://github.com/facebook/react/tree/master/src)，例如：
 
 * `React.createElement()`
-* `React.createClass()`
 * `React.Component`
 * `React.Children`
-* `React.PropTypes`
 
 **React core only includes the APIs necessary to define component**。它不需要包含[reconciliation](https://facebook.github.io/react/docs/reconciliation.html)索然或任何平台特定的（platform-specific）代码。它被用于React DOM 和React Native components。
 
@@ -297,7 +293,7 @@ React core 代码位于源代码树的[src/isomorphic](https://github.com/facebo
 
 ### Renderers
 
-React 最初是为了DOM 创建的但是最后它也改变为通过[React Native]() 支持本地平台。接下来介绍React 内部的“渲染（renderers）”概念。
+React 最初是为了DOM 创建的但是最后它也改变为通过[React Native](http://facebook.github.io/react-native/) 支持本地平台。接下来介绍React 内部的“渲染（renderers）”概念。
 
 **Renderers manange how a React tree turns into the underlying platform calls.**
 
@@ -309,16 +305,16 @@ Renderers 位于[src/renderers](https://github.com/facebook/react/tree/master/sr
 
 这唯一的其他官方支持的渲染器是[react-art](https://github.com/reactjs/react-art)。为了避免我们在改变React 时破环它，我们将它作为[src/renderers/art](https://github.com/facebook/react/tree/master/src/renderers/art) 检入（check in）并运行它的测试套件。尽管如此，它的[GitHub repository](https://github.com/reactjs/react-art) 仍然作为真理源（the source of truth）。
 
-虽然[技术上可以](https://github.com/iamdustan/tiny-react-renderer)创建自定义的React renderer，这时没有官方支持。对于自定义渲染器目前没有稳定的公共协议，这也是另一个我们保存同在单独一个地方的原因。
+虽然[技术上可以](https://github.com/iamdustan/tiny-react-renderer)创建自定义的React renderer，当前没有官方支持。对于自定义渲染器目前没有稳定的公共协议，这也是另一个我们保存同在单独一个地方的原因。
 
 >**Note：**
 技术上[native](https://github.com/facebook/react/tree/master/src/renderers/native)渲染器是一个非常薄的层，教导React 同React 实现交互。真正的平台特定的（platform-specific）代码管理本地视图位于[React Native repository](https://github.com/facebook/react-native)和它的component 在一起。
 
 ### Reconcilers
 
-即使像React DOM 和React Native 在渲染器上非常不同，仍然共享许多逻辑。尤其是，[reconciliation]() 算法应该尽可能的相似，以至于像声明式渲染，自定义component，state，lifecycel methods，和refs 仍然是跨平台一致。
+即使像React DOM 和React Native 在渲染器上非常不同，仍然共享许多逻辑。尤其是，[reconciliation](https://facebook.github.io/react/docs/reconciliation.html) 算法应该尽可能的相似，以至于像声明式渲染，自定义component，state，lifecycel methods，和refs 仍然是跨平台一致。
 
-为了解决它，不同的渲染器在它们之间共享一些代码。我们成React 的这部份为“reconciler”。当一个更新例如`setState` 被调度，这个reconciler 调用书中的component 上的`render()` 去加载、更新、或卸载它们。
+为了解决它，不同的渲染器在它们之间共享一些代码。我们成React 的这部份为“reconciler”。当一个更新例如`setState` 被调度，这个reconciler 调用树中的component 上的`render()` 去加载、更新、或卸载它们。
 
 Reconcilear 没有独立为包，因为它们目前还没有公共的API。相反，它们专门被用作渲染器例如React DOM 和React Native
 
@@ -338,7 +334,7 @@ Reconcilear 没有独立为包，因为它们目前还没有公共的API。相�
 
 #### Composite Components
 
-用户定义的（“composite”）components 应该和所有的渲染器有相同的行为。这就是为什么stack reconciler 在[`ReactCompositeComponent`](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js) 中提供一个共享的实现。它总是相同的无关渲染器。
+用户定义的（“composite”）components 应该和所有的渲染器有相同的行为。这就是为什么stack reconciler 在[`ReactCompositeComponent`](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js) 中提供一个共享的实现。它总是相同的，无关渲染器。
 
 Composite components 也实现了[mounting](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js#L181)、[updating](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js#L703) 和[unmounting](https://github.com/facebook/react/blob/87724bd87506325fcaf2648c70fc1f43411a87be/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js#L524)。然而，不像host components，`ReactCompositeComponent` 需要基于用户代码而有不同的行为。这就是为什么它调用的方法，像`render()` 和`componentDidMount()` 在用户提供的（user-supplide） 类上。
 
@@ -358,15 +354,15 @@ Composite components 也实现了[mounting](https://github.com/facebook/react/bl
 
 “fiber”reconciler 是一个新的努力去解决stack reconciler 中固有的问题和一些长期存在的问题。
 
-它完全重写了这个reconciler，当前处于[in active development]()。
+它完全重写了这个reconciler，当前处于[in active development](https://github.com/facebook/react/pulls?utf8=%E2%9C%93&q=is%3Apr%20is%3Aopen%20fiber)。
 
 它的主要目标是：
 
-* 能够分块可中断工作的能力
-* 能够优先、复位和重用工作进程中的能力
-* 在父节点和子节点之间来回支持布局在React 中的能力
-* 从`render()` 中返回多个element 的能力
-* 更好支持错误边界
+* 能够分块可中断工作的能力。
+* 能够优先、复位和重用工作进程中的能力。
+* 在父节点和子节点之间来回支持布局在React 中的能力。
+* 从`render()` 中返回多个element 的能力。
+* 更好支持错误边界。
 
 你可以在[React Fiber Architecture](https://github.com/acdlite/react-fiber-architecture) 中了解更多。目前，它仍然是试验性的，距离和stack reconciler 特性等价是遥远的。
 
@@ -376,14 +372,7 @@ Composite components 也实现了[mounting](https://github.com/facebook/react/bl
 
 React 实现了一个合成的事件系统，它是渲染器不可知的，在React DOM 和React Native 中工作。它的源代码位于[src/renderers/shared/shared/event](https://github.com/facebook/react/tree/master/src/renderers/shared/shared/event)。
 
-这有一个[video with a deep code dive into it](https://www.youtube.com/watch?v=dRo_egw7tBc) 60 分钟。
-
-
-### Add-ons
-
-每一个[React add-ons](https://facebook.github.io/react/docs/addons.html) 传送作为一个单独npm 包通过`react-addons-` 前缀。它们的源代码位于[src/addons](https://github.com/facebook/react/tree/master/src/addons)，[ReactPerf](https://github.com/facebook/react/blob/master/src/renderers/shared/ReactPerf.js) 和[ReactTestUtils](https://github.com/facebook/react/blob/master/src/test/ReactTestUtils.js) 是例外。
-
-此外，我们提供了一个独立的构建`react-with-addons.js`，它包括React core 和所有的add-ons 暴露在`React` 这个全局对象的`addons` 域上。
+这有一个[video with a deep code dive into it](https://www.youtube.com/watch?v=dRo_egw7tBc) 66 分钟。
 
 ### What Next？
 
