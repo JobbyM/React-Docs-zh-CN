@@ -1,16 +1,16 @@
-> 此文章是翻译[Implementation Notes](https://facebook.github.io/react/contributing/implementation-notes.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[Implementation Notes](https://facebook.github.io/react/contributing/implementation-notes.html)这篇React（版本v15.5.4）官方文档。
 
 ## Implementation Notes
 
 这部分是[stack reconciler](https://facebook.github.io/react/contributing/codebase-overview.html#stack-reconciler) 实现笔记集合。
 
-这是非常技术性的，并且呈现对React 公共API 的强烈理解，以及如何划分为核心（core），渲染器（renderer）以及reconciler。如果你对React 代码库不是非常了解，首先阅读[the codebase overview](https://facebook.github.io/react/contributing/codebase-overview.html)。
+这是非常技术性的，并且假设对React 公共API 有很强的理解，以及它如何划分为核心（core），渲染器（renderer）以及reconciler。如果你对React 代码库不是非常了解，首先阅读[the codebase overview](https://facebook.github.io/react/contributing/codebase-overview.html)。
 
 目前stack reconciler 是所有React 生产代码中最有效的。它位于[src/renderers/shared/stack/reconciler](https://github.com/facebook/react/tree/master/src/renderers/shared/stack) 并且被React DOM 和React Native 使用。
 
 ### Video: Buiding React from Scratch
 
-[Paul O'Shannessy](https://twitter.com/zpao) 关于[builing React form scratch](https://www.youtube.com/watch?v=_MAD4Oly9yg) 的演讲，大大的启发了这篇文档。
+[Paul O'Shannessy](https://twitter.com/zpao) 关于[builing React from scratch](https://www.youtube.com/watch?v=_MAD4Oly9yg) 的演讲，大大的启发了这篇文档。
 
 这篇文档和他的演讲是实际代码的简化，所以你可以更好的了解通过熟悉这两者。
 
@@ -41,6 +41,14 @@ reconciler 将检查`App` 是一个类（class）还是一个函数（function�
 
 你可以将这一过程想象成一段伪代码。
 ```jsx
+function isClass(type) {
+  // React.Component subclasses have this flag
+  return (
+    Boolean(type.prototype) &&
+    Boolean(type.prototype.isReactComponent)
+  );
+}
+
 // This function takes a React element (e.g. <App />)
 // and returns a DOM or Native node representing the mounted tree.
 function mount(element){
@@ -210,7 +218,6 @@ React 关键的特性是你可以重新渲染任何事情，并且它不会重�
 ReactDOM.render(<App />, rootEl)
 // Should reuse the existing DOM
 ReactDOM.render(<App />, rootEl)
-
 ```
 然而，我们上述的实现仅知道如何去加载初始化树。在它上面不能执行更新因为它不存储任何必须要的信息，像所有的`pulicInstance`，或哪一个DOM `node` 对于哪一个component。
 
@@ -282,7 +289,7 @@ class CompositeComponent {
   }
 }
 ```
-这和我们之前的`mountComposite()` 实现并没有什么大的不同，但是，现在我们可以保存一些信息，例如`this.currentElement`，`this.renderedComponent` 以及各`this.publicInstance` ，为了更新时使用。
+这和我们之前的`mountComposite()` 实现并没有什么大的不同，但是，现在我们可以保存一些信息，例如`this.currentElement`，`this.renderedComponent` 以及各`this.publicInstance` ，为了在更新时使用。
 
 注意`CompositeComponent` 的实例同用户提供的`element.type` 不是同一样东西。`CompositeComponent` 是我们的reconciler 实现细节，并且绝不会暴露给用户。用户提供的类是我们从`element.type` 读取的，并且`CompositeComponent` 创建它的一个实例。
 
@@ -342,7 +349,7 @@ class DOMComponent {
 ```
 `mountHost()` 重构后最大的不同是，现在我们保存`this.node` 和`this.renderedChildren` 到内部DOM component 实例上。未来我们将要将其应用到非破坏性（non-destructive）更新上。
 
-因此，每个内部实例，composite 或者host ，现在都指向它们孩子的内部实例。为了更好的理解它，如果一个函数`<App>` component 渲染一个`<Button>` 类component，并且`Button` 类渲染一个`<div>`，这个内部实例树看上去像这样：
+因此，每个内部实例，composite 或者host ，现在都指向它们孩子的内部实例。为了更好的理解它，如果一个functional `<App>` component 渲染一个`<Button>` class component，并且`Button` class渲染一个`<div>`，这个内部实例树看上去像这样：
 ```jsx
 [object CompositeComponent]{
   currentElement: <App />,
@@ -450,7 +457,7 @@ function unmountTree(containerNode){
 节点。我们将教导`mountTree` 去销毁任何已经组成呢的树，所以它可以被多次调用：
 ```jsx
 function mountTree(element, containerNode){
-  // Destory any existing tree
+  // Destroy any existing tree
   if(containerNode.firstChild){
     unmountTree(containerNode)
   }
@@ -543,7 +550,7 @@ class CompositeComponent{
 ```
 接下来，我们可以查看已渲染element 的`type`。如果`type` 还没有改变自从上一次渲染，上面的component 可以在这个位置更新。
 
-例如，如果首次它返回`<Button color="red" />`，第二次返回`<Button color="blue" />`，我们就可以告诉响应的内部实例去`recevie()` 下一个element：
+例如，如果首次它返回`<Button color="red" />`，第二次返回`<Button color="blue" />`，我们就可以告诉相应的内部实例去`recevie()` 下一个element：
 ```jsx
     // ...
 
@@ -792,7 +799,7 @@ mountTree(<App />, rootEl)
 * 渲染器使用[injection](https://facebook.github.io/react/contributing/codebase-overview.html#dynamic-injection) 去传递host 内部实例类到reconciler。例如，React DOM 告诉reconciler 使用`ReactDOMComponent` 作为host 内部实例实现。
 * 更新孩子列表的逻辑被提取成mixin 称为`ReactMultiChild`，它在React DOM 和React Native 中的host 内部实例类实现。
 * 在composite component 中，reconciler 也实现支持`setState()`。在事件句柄中的多个更新被绑定到一次更新中。
-* reconciler 也会处理绑定和解绑定（attaching and detaching）res 到composite component 和host 节点上。
+* reconciler 也会处理绑定和解绑定（attaching and detaching）refs 到composite component 和host 节点上。
 * 当DOM 准备好后生命周期钩子被调用，像`componentDidMount()` 和`componentDidUpdate()`，被收集到“回调队列（callback queues）”并且在一次性执行它们。
 * React 将关于当前更新的信息放到一个内部对象上称为“（事务）tansaction”。事务对于在生命周期钩子期间，当前DOM 嵌套的警告，其它“全局（global）”配置更新队列上的轨迹是有用的。事务也确保更新之后，React“清理干净任何事情（clean everything up）”。例如，React DOM提供的事务类重新存储每次更新之后的输入选择。
 
@@ -811,7 +818,6 @@ mountTree(<App />, rootEl)
 ### Future Directions
 
 stack reconciler 有一些固有的限制性，例如同步和不能中断工作或分块。这有一个进行中的工作，使用[完全不同的体系](https://github.com/acdlite/react-fiber-architecture)的[new Fiber reconcier](https://facebook.github.io/react/contributing/codebase-overview.html#fiber-reconciler)。未来，我们打算用它替换statck reconciler，但是目前它距离这个特性相等还很远。
-
 
 ### Next Steps
 
