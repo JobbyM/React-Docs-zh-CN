@@ -1,12 +1,12 @@
-> 此文章是翻译[SyntheticEvent](https://facebook.github.io/react/docs/events.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[SyntheticEvent](https://facebook.github.io/react/docs/events.html)这篇React（版本v15.5.4）官方文档。
 
 ## SyntheticEvent
 
-SynthecticEvent 入门参考文档包括React 时间系统中的表单部分。参考[Handling Event](https://facebook.github.io/react/docs/handling-events.html) 获取更多信息。
+入门参考记录React 事件系统中的表单部分的SynthecticEvent 包装器。参考[Handling Event](https://facebook.github.io/react/docs/handling-events.html) 获取更多信息。
 
 ## Overview
 
-你的事件句柄将会传入一个`SyntheticEvent` 实例，一个跨浏览器的包装器包装着浏览器原生事件。它有着和浏览器原生事件相同的接口，包括`stopPropagation()` 和`preventDefault()` ,除了事件同一工作跨所有浏览器。
+你的事件句柄将会传入一个`SyntheticEvent` 实例，一个跨浏览器的包装器包装着浏览器原生事件。它有着和浏览器原生事件相同的接口，包括`stopPropagation()` 和`preventDefault()` ,除了这些事件在所有浏览器中的工作相同。
 
 
 如果你发现由于某些原因你需要底层浏览器事件，可以简单地使用`nativeEvent` 特性去处理它。每一个`SyntheticEvent` 对象有下面这些特性：
@@ -51,7 +51,7 @@ string type
   }
 ```
 >**Note：**
-如果你想要异步地访问事件属性，你应该调用事件的`event.persist`，这回从池子（pool）中移除合成事件（synthetic event）并且允许引用通过用户代码保存的事件。
+如果你想要异步地访问事件属性，你应该调用事件的`event.persist（）`，这会从池子（pool）中移除合成事件（synthetic event）并且允许引用通过用户代码保存的事件。
 
 ## Supported Events
 
@@ -86,7 +86,7 @@ onCopy onCute onPaste
 属性：
 ```jsx
 DOMDataTransfer clipboardData
-````
+```
 
 ### Composition Events
 
@@ -97,7 +97,7 @@ onCompositionEnd onCompositionStart onCompositionUpdate
 属性：
 ```jsx
 string data
-````
+```
 
 ### Keyboard Events
 
@@ -119,7 +119,7 @@ boolean metaKey
 boolean repeat
 boolean shiftKey
 number which
-````
+```
 
 ### Focus Events
 
@@ -131,7 +131,7 @@ onFocus onBlur
 属性：
 ```jsx
 DOMEventTarget relatedTarget
-````
+```
 
 ### Form Events
 
@@ -164,7 +164,7 @@ DOMEventTarget relatedTarget
 number screenX
 number screenY
 boolean shiftKey
-````
+```
 
 ### Selection Events
 
@@ -189,7 +189,7 @@ boolean metaKey
 boolean shiftKey
 DOMTouchList targetTouches
 DOMTouchList touches
-````
+```
 
 ### UI Events
 
@@ -201,7 +201,7 @@ onScroll
 ```jsx
 number detail
 DOMAbstractView view
-````
+```
 
 ### Wheel Events
 
@@ -215,7 +215,7 @@ number deltaMode
 number deltaX
 number deltaY
 number deltaZ
-````
+```
 
 ### Media Events
 
@@ -242,7 +242,7 @@ onAnimationStart onAnimationEnd onAnimationIteration
 string animationName
 string pseudoElement
 float elapsedTime
-````
+```
 
 ### Transition Events
 
@@ -255,4 +255,4 @@ onTransitionEnd
 string propertyName
 string pseudoElement
 float elapsedTime
-````
+```
