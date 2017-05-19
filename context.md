@@ -23,7 +23,8 @@
 ### How To Use Context
 
 假设你有一个如下的结构：
-```jsx
+{% raw %}
+```
 class Button extends Component {
   render() {
     return (
@@ -54,8 +55,10 @@ class MessageList extends Component {
   }
 }
 ```
+{% endraw %}
 在这个例子中，我们以适当的方式手动得传入一个`color` props 到 `Button` 和`Message` components 中。使用context，我们可以通过这个树自动传入：
-```jsx
+{% raw %}
+```
 class Button extends Component {
   render() {
     return (
@@ -96,6 +99,7 @@ MessageList.childContextTypes = {
   color: PropTypes.string
 }
 ```
+{% endraw %}
 通过添加`childContextTypes` 和`getChildContext` 到`MessageList`（context 提供者），React 可以自动向下传递信息并且子树中的任何components （这个例子中的`Button`）都可以通过定义`contextTypes` 去访问它。  
 
 如果`contextTypes` 没有被定义，那么这个`context` 将是一个空对象。
@@ -142,7 +146,8 @@ const BasicExample = () => (
 ### Referencing Context in Stateless Functional Components
 
 无状态的functional components 也可以引用`context` 如果`contextTypes` 作为函数的属性被定义。下面代码展示一个无状态的functional `Button` component 。
-```jsx
+{% raw %}
+```
 const PropTypes = require('prop-types');
 
 const Button = ({children}, context) =>
@@ -152,6 +157,7 @@ const Button = ({children}, context) =>
 
 Button.contextTypes = {color: PropTypes.string}
 ```
+{% endraw %}
 
 ### Updating Context
 

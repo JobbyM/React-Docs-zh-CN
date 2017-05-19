@@ -28,7 +28,7 @@ React 提供声明式（declarative）API 所以你不必担心每次更新会�
 当销毁一个树，旧的DOM 节点也会被销毁。Component 实例（instance）会收到`componentWillUnmout()`。当构建一个新树，新的DOM 节点将会被插入DOM。Component 实例将会接受`componentWillMount()` 之后接受`componentDidMount()`。所有和旧树关联的state 都会失去。
 
 在根下的所有components 都会被unmounted，它们的state 也会被销毁。例如，当比较：
-```jsx
+```
 <div>
   <Counter />
 </div>
@@ -50,11 +50,13 @@ React 提供声明式（declarative）API 所以你不必担心每次更新会�
 通过比较这两个elements，React 知道只需要修改底层DOM node的`className`。
 
 在更新`style` 时，React 也知道只需要更新发生改变的属性（properties）。例如：
-```jsx
-<div style={{color: 'red', fontWeight: 'bold'}} />
-
-<div style={{color: 'green', fontWeight: 'bold'}} />
+{% raw %}
 ```
+<div style={{color: "red", fontWeight: "bold"}} />
+
+<div style={{color: "green", fontWeight: "bold"}} />
+```
+{% endraw %}
 在改变这两个elements 时，React 知道只需要修改`color` 样式，而不需要修改`fontWeight`。
 
 处理DOM node之后，React 开始的递归（recurse）孩子节点。
