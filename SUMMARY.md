@@ -41,15 +41,6 @@
 * [ReactDOMServer](react-dom-server.md)
 * [DOM Elements](dom-elements.md)
 * [SyntheticEvent](events.md)
-* [Add-Ons](addons.md)
-  * [Performance Tools](perf.md)
-  * [Test Utilities](test-utils.md)
-  * [Animation](animation.md)
-  * [Keyed Fragments](create-fragment.md)
-  * [Immutability Helpers](update.md)
-  * [PureRenderMixin](pure-render-mixin.md)
-  * [Shallow Compare](shallow-compare.md)
-  * [Two-way Binding Helpers](two-way-binding-helpers.md)
 
 ## CONTRIBUTING
 
