@@ -1,10 +1,10 @@
-> 此文章是翻译[DOM Elements](https://facebook.github.io/react/docs/dom-elements.html)这篇React（版本v15.4.0）官方文档。
+> 此文章是翻译[DOM Elements](https://facebook.github.io/react/docs/dom-elements.html)这篇React（版本v15.5.4）官方文档。
 
 ## DOM Elements
 
-React 为了性能和跨浏览器兼容实现了一个独立的DOM 系统。我们有机会去除一些粗糙的浏览器实现。
+React 为了性能和跨浏览器兼容实现了一个独立的DOM 系统。我们有机会去除一些粗糙的浏览器DOM实现。
 
-在React 中，所有的DOM 属性（properties）和特性（attributes）（包括事件句柄）都应该是camelCased。例如，HTML 特性`tabindex` 对于React 特性`tabIndex`。特例是`aria-*` 和`data-*` 特性应该是lowercased。
+在React 中，所有的DOM 属性（properties）和特性（attributes）（包括事件句柄）都应该是camelCased。例如，HTML 特性`tabindex` 对于React 特性`tabIndex`。特例是`aria-*` 和`data-*` 特性，它们应该是lowercased。
 
 ## Differences In Attributes
 
@@ -16,13 +16,13 @@ React 为了性能和跨浏览器兼容实现了一个独立的DOM 系统。我�
 
 ### className
 
-配置CSS class，使用`className` 特性。这应用在所有的正规的DOM 和SVG 的元素像`<div>`，`<a>` 以及其它元素。
+配置CSS class，使用`className` 特性。这应用在所有的常规的DOM 和SVG 的元素像`<div>`，`<a>` 以及其它元素。
 
-如果你用Web Component （这并不常用）来使用React，使用`class` 特性来替代。
+如果你在Web Component （这并不常用）中使用React，使用`class` 特性来替代。
 
 ### dangerouslySetInnerHTML
 
-`dangerouslySetInnerHTML` 是React 中用来替代浏览器DOM 中的`innerHTML`。通常，在代码中设置HTML 是危险的因为它很容易无意的暴露你的用户受到[cross-site scripting(XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting)攻击。所以，你可以在React 中直接设置HTML，但是你必须使用`dangerouslySetInnerHTML` 并传递一个代码`__html` key 的对象，用来提醒你这是危险的。例如：
+`dangerouslySetInnerHTML` 是React 中用来替代浏览器DOM 中的`innerHTML`。通常，在代码中设置HTML 是危险的因为它很容易无意的暴露你的用户，遭受到[cross-site scripting(XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting)攻击。所以，你可以在React 中直接设置HTML，但是你必须使用`dangerouslySetInnerHTML` 并传递一个代码`__html` key 的对象，用来提醒你这是危险的。例如：
 ```jsx
 function createMarkup(){
   return {__html: 'First &middot; Second'}
@@ -58,7 +58,7 @@ function HelloWorldComponent(){
   return <div style={divStyle}>Hello World!</div>
 }
 ```
-注意到style 并不是自动加前缀的。为了支持老版本浏览器，你需要补充响应的浏览器style 属性：
+注意到style 并不是自动加前缀的。为了支持老版本浏览器，你需要补充相应的浏览器style 属性：
 ```jsx
 const divStyle = {
   WebkitTransition: 'all', // note the capital 'W' here
@@ -68,11 +68,11 @@ function ComponentWithTransition(){
   return <div style={divStyle}>This should work cross-browser</div>
 }
 ```
-Style keys 是camelCased 为了保持同JS 访问DOM 节点上的属性一致（例如，`node.style.backgroundImage`）。厂商（vendor）前缀[除了ms](http://www.andismith.com/blog/2012/02/modernizr-prefixed/)都应该是大写字母开头。这就是为什么`WebkitTransition` 是以`W`开头。
+Style keys 是camelCased 为了保持同JS 访问DOM node上的属性一致（例如，`node.style.backgroundImage`）。厂商（vendor）前缀[除了`ms`](http://www.andismith.com/blog/2012/02/modernizr-prefixed/)都应该是大写字母开头。这就是为什么`WebkitTransition` 是以`W`开头。
 
 ### suppressContentEditableWarning
 
-通常，当自己点的element 被标记为`contentEditable` 时会有警告，因为它不会工作。这个特性就是为了阻止这个警告。不要使用它，除非你正在构建一个类似[Draft.js](https://facebook.github.io/draft-js/) 的库用来手动管理`contentEditable`。
+通常，当有孩子的element 被标记为`contentEditable` 时，会发出警告，因为它不起作用。这个特性就是为了阻止这个警告。除非你正在构建一个类似[Draft.js](https://facebook.github.io/draft-js/) 的库用来手动管理`contentEditable`，否则不要使用它。
 
 ### value
 
