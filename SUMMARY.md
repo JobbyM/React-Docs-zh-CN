@@ -53,3 +53,4 @@
 ## FAQ
 
 * [AJAX and APIs](faq-ajax.md)
+* [Babel,JSX, and Build Steps](faq-build.md)
