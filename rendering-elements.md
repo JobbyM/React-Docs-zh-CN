@@ -8,22 +8,22 @@ Elements 是构建React app 的最小块。
 ```jsx
 const element = <h1>Hello, world</h1>
 ```
-不像浏览器DOM elements，React elements 是纯对象，非常容易创建。React DOM 关心更新DOM 来匹配React elements。
+不像浏览器DOM elements，React elements 是简单的对象，非常容易创建。React DOM 负责更新DOM 来匹配React elements。
 
 >**Note：**
 Elements 可能和另一个广为人知的概念components 产生混淆。我们将要在[下一章节](https://facebook.github.io/react/docs/components-and-props.html)介绍components。Components 是由elements 组成，我们建议你先阅读这部分再跳到下一章。
 
 ### Rendering an Element into the DOM
 
-我们说在你的HTML 文件的某个位置有一个`<div>`
+假设你的HTML 文件的某个位置有一个`<div>`
 ```html
 <div id="root"></div>
 ````
 我们称它为“root”DOM 节点因为所有的此节点中的内容都被React DOM 管理。
 
-仅被React 构建的应用通常只有一个root DOM 节点。如果你正在集合React 到一个已经存在的应用，你可以按照你的喜好有多个独立的root DOM 节点。
+使用React 构建的应用通常只有一个root DOM 节点。如果你正在集成React 到一个已经存在的应用，你可以按照你的喜好有多个独立的root DOM 节点。
 
-为了渲染一个React element 到一个root DOM 节点，需要将其都传入`ReactDOM.render()`：
+为了渲染一个React element 到一个root DOM 节点，需要将它们传入`ReactDOM.render()`：
 ```jsx
 const element = <h1>Hello, world</h1>
 ReactDOM.render(

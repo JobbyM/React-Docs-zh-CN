@@ -58,6 +58,6 @@ ReactDOM.findDOMNode(component)
 如果component 已经被载入DOM，这将返回相应的原生浏览器DOM 元素。这个方法对读取DOM 外的值是有用的，就像表单域值（form field value）以及执行DOM 分析（measurement） 。**在大多数情况下，你可以绑定一个ref 到DOM 节点上从而避免使用`findDOMNode`**。当`render()` 返回`null` 或`false`，`findDOMNode` 将会返回`null`。
 
 >**Note：**
-`findDOMNode` 是一个逃生舱（escape hatch）被用来反问底层DOM 节点。在大多数情况下，逃生舱（escape hatch）的使用是被阻止的，因为它刺穿（pierce）component 的抽象。
+`findDOMNode` 是一个逃生舱（escape hatch）被用来访问底层DOM 节点。在大多数情况下，逃生舱（escape hatch）的使用是被阻止的，因为它刺穿（pierce）component 的抽象。
 `findDOMNode`只在已经加载的（mounted）component 中使用（那是，component 已经存在于DOM 中）。如果你尝试调用一个还没有被加载的component（就像，在还没有被创建component 的`render()` 方法中调用`findDOMNode()` ）将会抛出一个异常。
 `findDOMNode` 不能被用在functional component 中。

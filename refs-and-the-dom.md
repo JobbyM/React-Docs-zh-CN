@@ -130,7 +130,7 @@ function CustomTextInput(props){
 
 ## Exposing DOM Refs to Parent Components
 
-在少数情况下，你可能需要从父component 中访问孩子的DOM node。这通常不会被推荐，因为这破坏了component 的封装型，但是它偶尔是有用的，例如触发focus 或者测量孩子DOM node 的大小为位置。
+在少数情况下，你可能需要从父component 中访问孩子的DOM node。这通常不会被推荐，因为这破坏了component 的封装型，但是它偶尔是有用的，例如触发focus 或者测量孩子DOM node 的大小或位置。
 
 虽然你可以[add a ref to to the child component](https://facebook.github.io/react/docs/refs-and-the-dom.html#adding-a-ref-to-a-class-component)，但是这不是一个理想的解决方案，因为你只是得到一个component 的实例而不是一个DOM node。除此之外，它也不会在functional component 中工作。
 
