@@ -7,9 +7,9 @@
 > 在线GitBook 地址：https://jobbym.gitbooks.io/react-docs-zh-cn/
 
 
-> 英文原版：https://facebook.github.io/react/docs/installation.html
+> 英文原版：https://reactjs.org/docs/hello-world.html
 
-React 中文文档主要是[JobbyM](https://github.com/JobbyM/) 根据React 官网进行翻译，其官网版本为v15.5.4。
+React 中文文档主要是[JobbyM](https://github.com/JobbyM/) 根据React 官网进行翻译，其官网版本为v16.2.0。
 
 ## 贡献内容
 
