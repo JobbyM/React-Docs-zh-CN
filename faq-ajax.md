@@ -8,7 +8,7 @@
 
 ### 我应该在组件的哪个生命周期中使用AJAX 请求
 
-你应该在[componentDidMount]() 生命周期方法中设置通过AJAX 请求到的数据。这样你可以使用`setState` 去更新你的组件，当数据被检索到的时候。
+你应该在[componentDidMount](https://reactjs.org/docs/react-component.html#mounting) 生命周期方法中设置通过AJAX 请求到的数据。这样你可以使用`setState` 去更新你的组件，当数据被检索到的时候。
 
 ### 例子：使用AJAX 结果去设置local state
 
