@@ -48,3 +48,8 @@
 * [Codebase Overview](codebase-overview.md)
 * [Implementation Notes](implementation-notes.md)
 * [Design Principles](design-principles.md)
+
+
+## FAQ
+
+* [AJAX and APIs](faq-ajax.md)
