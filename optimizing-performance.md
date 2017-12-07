@@ -335,6 +335,7 @@ const SomeRecord = Immutable.Record({ foo: null })
 const x = new SomeRecord({ foo: 'bar' })
 const y = x.set('foo', 'baz')
 x === y // false
+x === z // true
 ```
 在这个例子中，当改变`x` 时返回一个新的引用，我们可以安全的假设`x` 已经改变了。
 
