@@ -55,3 +55,4 @@
 * [AJAX and APIs](faq-ajax.md)
 * [Babel,JSX, and Build Steps](faq-build.md)
 * [Passing Functions to Components](faq-functions.md)
+* [Component State](faq-state.md)
