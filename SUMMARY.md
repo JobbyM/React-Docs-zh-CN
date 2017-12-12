@@ -58,3 +58,4 @@
 * [Component State](faq-state.md)
 * [Styling and CSS](faq-styling.md)
 * [File Structure](faq-structure.md)
+* [Virtual DOM and Internals](faq-internals.md)
