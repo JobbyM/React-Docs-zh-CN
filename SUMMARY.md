@@ -41,7 +41,8 @@
 * [ReactDOMServer](react-dom-server.md)
 * [DOM Elements](dom-elements.md)
 * [SyntheticEvent](events.md)
-* [JavaScript Environment requirements](javascript-environment-requirements.md)
+* [JavaScript Environment Requirements](javascript-environment-requirements.md)
+* [Glossary](glossary.md)
 
 ## CONTRIBUTING
 
