@@ -31,6 +31,7 @@ CND 是内容分发网络（Content Delivery Network）的缩略词。CDN 从全
 ### JSX
 
 JSX 是JavaScript 的语法扩展。它类似于模板语言，但它具有JavaScript 的全部功能。JSX 通过`React.createElement` 的调用进行编译。c返回普通的JavaScript的对象称为“React Element”。[这是](https://reactjs.org/docs/introducing-jsx.html)JSX 一个基本的介绍文档，而[这是](https://reactjs.org/docs/jsx-in-depth.html) JSX更深入的教程。
+
 React DOM 使用CamelCase 属性命名约定来代替HTML属性名称。例如，`tabindex` 变成在JSX的`tabIndex`。属性`class` 被写为`className`， 因为`class` 是JavaScript中的保留字：
 
 ```
@@ -117,7 +118,9 @@ class Welcome extends React.Component {
 ### [state](https://reactjs.org/docs/state-and-lifecycle.html#adding-local-state-to-a-class)
 
 当与它相关的某些数据随时间变化时，组件需要`state` 。例如，`Checkbox`组件可能需要`isChecked` 的`state`，`NewsFeed` 组件可能想跟踪其`state` 的`fetchedPosts`。
+
 `state` 和`props` 之间最重要的区别在于，`props` 是从父组件传递的，而`state` 是由组件本身管理的。组件不能改变它的`props` ，但它可以改变它的`state` 。这样做，它必须调用`this.setState()`。只有定义为类的组件才能具有`state`。
+
 对于每个特定的变化数据，应该只有一个组件“拥有”它的`state`。不要试图同步两个不同组件的`state`。相反，[把它提升](https://reactjs.org/docs/lifting-state-up.html)到最接近的祖先，并把它作为`props` 传给他们两个。
 
 ### [生命周期方法（Lifecycle Methods）](https://reactjs.org/docs/state-and-lifecycle.html#adding-lifecycle-methods-to-a-class)
@@ -127,20 +130,26 @@ class Welcome extends React.Component {
 ### [受控的（Controlled）](https://reactjs.org/docs/forms.html#controlled-components) vs. [不可控的（Uncontrollled Components）](https://reactjs.org/docs/uncontrolled-components.html)
 
 React 有两种不同的处理表单输入的方法。
+
 输入表单元素的值由Redact 控制的称为受控组件。当用户将数据输入受控制的组件时，将触发一个更改事件处理器，你的代码将决定输入是否有效（通过更新的值重新渲染）。如果不重新渲染，表单元素将保持不变。
+
 一个不受控制的组件像表单元素一样工作在React 之外。当用户将数据输入表单字段（输入框、下拉列表等）时，更新的信息被反射出来，而不需要React 做任何事情。然而，这也意味着不能强迫字段域（field）具有一个确定的值。
+
 在大多数情况下，你应该使用受控组件。
 
 ### [Keys](https://reactjs.org/docs/lists-and-keys.html)
 
 “key” 是创建元素数组时需要包含的一个特殊字符串属性。Keys 有助于识别哪些项目已经更改、添加或删除。应该给数组中的元素赋予key，使元素具有稳定的标识。
+
 Key 只需要在同一数组中的同级元素之间是唯一的。它们不需要在整个应用程序中甚至单个组件中都是唯一的。
+
 不传递像`Math.random()` 给key。重要的是，key 在重新渲染时有一个“稳定的标识”，所以React 可以决定何时添加、移除或重新排序。理想情况下，Key应符合独特的稳定来自于你的数据的标识符，如`post.id`。
 
 
 ### [Refs](https://reactjs.org/docs/refs-and-the-dom.html)
 
 React 支持你可以附加到任何组件的特殊属性。`ref` 属性可以是字符串或回调函数。当`ref` 属性是一个回调函数时，函数接收底层DOM元素或类实例（取决于元素的类型）作为参数。这允许你直接访问DOM元素或组件实例。
+
 谨慎使用`ref` 。如果你发现自己经常在应用程序中使用`ref` “让事情发生”，那么考虑一下更熟悉的[自上而下的数据流](https://reactjs.org/docs/lifting-state-up.html)。
 
 ### [事件（Events）](https://reactjs.org/docs/handling-events.html)
