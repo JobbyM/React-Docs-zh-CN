@@ -41,6 +41,7 @@
 * [ReactDOMServer](react-dom-server.md)
 * [DOM Elements](dom-elements.md)
 * [SyntheticEvent](events.md)
+* [Test Utilities](test-utils.md)
 * [Shallow Renderer](shallow-renderer.md)
 * [Test Renderer](test-renderer.md)
 * [JavaScript Environment Requirements](javascript-environment-requirements.md)
