@@ -196,7 +196,7 @@ shouldComponentUpdate(nextProps, nextState)
 
 当前，如果`shouldComponentUpdate()`  返回`false`，那么[componentWillUpdate()](https://reactjs.org/docs/react-component.html#componentwillupdate) ，[render()](https:///reactjs.org/react/docs/react-component.html#render) 和[componentDidUpdate()](https:///reactjs.org/react/docs/react-component.html#componentdidupdate) 都不会被调用。注意在未来React 可能将`shouldComponentUpdate()`作为一个提示而不是一个严格的指令，返回`false` 仍将导致组件重新渲染。
 
-如果你在分析后确定特定的组件是慢的，你可以改变它去继承[React.PureComponent](https://reactjs.org/react/docs/react-api.html#react.purecomponent)，而它实现了一个浅prop和state 比较的`shouldComponentUpdate()`方法。 如果你有信心去亲自实现它，你可以比较`this.props` 和`nextProps` 以及`this.state` 和`nextState` 并返回`false` 告诉React 这次更新可以被跳过。
+如果你在分析后确定特定的组件是慢的，你可以改变它去继承[React.PureComponent](https://reactjs.org/docs/react-api.html#react.purecomponent)，而它实现了一个浅prop和state 比较的`shouldComponentUpdate()`方法。 如果你有信心去亲自实现它，你可以比较`this.props` 和`nextProps` 以及`this.state` 和`nextState` 并返回`false` 告诉React 这次更新可以被跳过。
 
 我们不推荐在`shouldComponentUpdate()` 中进行深度相等性检查，或者使用`JSON.stringify()`。它是非常低效的并将损害性能。
 
@@ -383,4 +383,4 @@ state 包含特定于该组件的数据，可能随着时间而改变。state �
 
 参考[State and Lifecycle](https://reactjs.org/docs/state-and-lifecycle.html) 去了解更多关于state 的信息。
 
-永远不要直接改变`this.state`，因为调用`setState()` 之后，可能会替换你做的这个改变。对待`this.state` 就像它是不可变的。
+永远不要直接改变`this.state`，因为调用`setState()` 之后，可能会替换你已做的这个改变。对待`this.state` 就像它是不可变的。
