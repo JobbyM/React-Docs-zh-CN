@@ -22,6 +22,7 @@
 
 * [JSX In Depth](jsx-in-depth.md)
 * [Typechecking With PropTypes](typechecking-with-proptypes.md)
+* [Static Type Checking](static-type-checking.md)
 * [Refs and the DOM](refs-and-the-dom.md)
 * [Uncontrolled Components](uncontrolled-components.md)
 * [Optimizing Performance](optimizing-performance.md)
