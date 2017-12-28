@@ -1,32 +1,37 @@
-> 此文章是翻译[Typechecking With PropTypes](https://facebook.github.io/react/docs/typechecking-with-proptypes.html)这篇React（版本v15.5.4）官方文档。
+> 此文章是翻译[Typechecking With PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html)这篇React（版本v16.2.0）官方文档。
 
 ## Typechecking With PropTypes
 
-> 注意：`React.PropTypes` 在React v15.5 版本被废弃。请使用[`prop-types`库替代](https://www.npmjs.com/package/prop-types)
+> 注意：
+
+>`React.PropTypes` 从React v15.5 版本已经移入一个不同的包。请使用[`prop-types`库替代](https://www.npmjs.com/package/prop-types)
 
 
-随着你的应用的增大， 你可以通过类型检测（typechecking）获取许多bugs。对于一些应用，你可以使用JavaScript 后缀例如[Flow](https://flowtype.org/)或者[TypeScript](https://www.typescriptlang.org/) 去检测你的整个应用。但是即使你不使用这些，在React 有一些内置的类型检测能力。为了能够在component 的props 上运行类型检测，你可以将其赋于`propTypes` 属性（property）：
-```jsx
+随着你的应用的增大， 你可以通过类型检测（typechecking）捕获许多bugs。对于一些应用，你可以使用JavaScript 扩展例如[Flow](https://flowtype.org/)或者[TypeScript](https://www.typescriptlang.org/) 去检测你的整个应用。但是即使你不使用这些，在React 有一些内置的类型检测能力。为了能够在组件的props 上运行类型检测，你需要配置特殊的`propTypes` 属性：
+
+```
 import PropTypes from 'prop-types';
 
-class Greeting extends Component {
-  render(){
+class Greeting extends React.Component {
+  render() {
     return (
       <h1>Hello , {this.props.name}</h1>
-    )
+    );
   }
 }
 
 Greeting.propTypes = {
   name : PropTypes.string
-}
+};
 ```
+
 `PropTypes` 导出一系列的验证器（validator）可以用来确认你收到有效的数据。在这个例子中，我们使用`PropTypes.string`。当一个无效的值被提供给prop，一个警告就会在JavaScript console 中显示。为了性能原因，`propTypes` 只在开发模式进行验证。
 
 ### PropTypes
 
 这有一个例子展示如何使用不同验证器：
-```jsx
+
+```
 import PropTypes from 'prop-types';
 
 MyComponent.propTypes = {
@@ -111,36 +116,38 @@ MyComponent.propTypes = {
 
 ### Requiring Single Children
 
-使用`React.PropTypes.element` 你可以配置仅允许单个子节点传给component：
-```jsx
+使用`React.PropTypes.element` 你可以配置仅允许单个子节点传给组件：
+
+```
 import PropTypes from 'prop-types';
 
-class MyComponent extends Component {
-  render(){
+class MyComponent extends React.Component {
+  render() {
     // This must be exactly one element or it will warn.
-    const children = this.props.children
+    const children = this.props.children;
     return (
       <div>
         {children}
       </div>
-    )
+    );
   }
 }
 
 MyComponent.PropTypes = {
   children: PropTypes.element.isRequired
-}
+};
 ```
 
 ### Default Prop Values
 
-通过为你的`props` 与一个特殊的`defaultProps` 属性来定义一个默认值：
-```jsx
-class Greeting extends Component {
-  render(){
+通过为你的`props` 配置一个特殊的`defaultProps` 属性来定义一个默认值：
+
+```
+class Greeting extends React.Component {
+  render() {
     return (
       <h1>Hello , {this.props.name}</h1>
-    )
+    );
   }
 }
 
@@ -155,4 +162,21 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
-这个`defaultProps` 将会确认这个`this.props.name` 有值即使它没有被父component 配置。这个`propType` 将在`defaultProps` 被解析之后进行类型检测，所以类型检测也可用在`defaultProps` 上。
+
+如果你正在用像[transform-class-properties](https://babeljs.io/docs/plugins/transform-class-properties/) Babel 转换器，你也可以在React 组件类中声明`defaultProps` 作为静态属性。这个语法还没有最终通过，在浏览器中需要一步编译工作。更多信息，查看[class fields proposal](https://github.com/tc39/proposal-class-fields)。
+
+```
+class Greeting extends React.Component {
+  static defaultProps = {
+    name: 'stranger'
+  }
+
+  render() {
+    return (
+      <div>Hello, {this.props.name}</div>
+    )
+  }
+}
+```
+
+这个`defaultProps` 将会确认这个`this.props.name` 有值即使它没有被父组件配置。这个`propType` 将在`defaultProps` 被解析之后进行类型检测，所以类型检测也可用在`defaultProps` 上。
