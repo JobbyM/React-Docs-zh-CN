@@ -208,8 +208,8 @@ class Grandparent extends React.Component {
 
 ### Legacy API: String Refs
 
-如果你之前使用过React，则可能熟悉一个较旧的API，其中`ref`属性是一个字符串，如`"textInput"`，DOM node作为`this.refs.textInput`访问。 我们建议不使用它，因为字符串refs有[一些问题](https://github.com/facebook/react/pull/8333#issuecomment-271648615)，被认为是历史遗留问题，并且 **可能会在以后的版本中被删除**。 如果你正在使用`this.refs.textInput`访问refs，则建议使用回调模式。
+如果你之前使用过React，则可能熟悉一个较旧的API，其中`ref` 特性是一个字符串，如`"textInput"`，DOM 节点作为`this.refs.textInput` 访问。 我们建议不使用它，因为字符串refs有[一些问题](https://github.com/facebook/react/pull/8333#issuecomment-271648615)，被认为是历史遗留问题，并且 **可能会在以后的某个版本中被删除**。 如果你正在使用`this.refs.textInput` 访问refs，则建议使用回调模式。
 
 ### Caveats
 
-如果`ref`回调被定义为内联函数（inline function），则在更新期间将被调用两次，首先为`null`，然后再次使用DOM element。 这是因为使用每个渲染创建一个新的函数实例，所以React需要清除旧的ref并设置新的ref。 你可以通过将`ref`回调定义为类的绑定方法来避免这种情况，但请注意，在大多数情况下，这并不重要。
+如果`ref`回调被定义为行内函数（inline function），则在更新期间将被调用两次，首先使用`null`，然后再次使用DOM 元素。 这是因为每次渲染中，一个新的函数实例被创建，所以React 需要清除旧的ref 并设置新的ref。 你可以通过将`ref`回调定义为类的绑定方法来避免这种情况，但请注意，在大多数情况下，这并不重要。
