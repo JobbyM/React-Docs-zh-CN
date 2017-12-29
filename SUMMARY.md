@@ -31,6 +31,7 @@
 * [Reconciliation](reconciliation.md)
 * [Context](context.md)
 * [Fragments](fragments.md)
+* [Portals](portals.md)
 * [Web Components](web-components.md)
 * [Higher-Order Components](higher-order-components.md)
 * [Integrating with Other Libraries](integrating-with-other-libraries.md)
