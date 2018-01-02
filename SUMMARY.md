@@ -32,6 +32,7 @@
 * [Context](context.md)
 * [Fragments](fragments.md)
 * [Portals](portals.md)
+* [Error Boundaries](error-boundaries.md)
 * [Web Components](web-components.md)
 * [Higher-Order Components](higher-order-components.md)
 * [Integrating with Other Libraries](integrating-with-other-libraries.md)
