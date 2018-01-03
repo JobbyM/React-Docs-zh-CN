@@ -2,6 +2,12 @@
 
 * [Introduction](README.md)
 
+## INSTALLATION
+
+* [Add React to a New App](add-react-to-a-new-app.md)
+* [Add React to an Existing App](add-react-to-an-existing-app.md)
+* [CDN Links](cdn-links.md)
+
 ## QUICK START
 
 * [Installation](installation.md)
