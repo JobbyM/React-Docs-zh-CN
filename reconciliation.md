@@ -2,7 +2,11 @@
 
 ## Reconciliation
 
+<<<<<<< HEAD
 React 提供声明式（declarative）API 所以你不必担心每次更新的变化。这使得写应用更加容易，但在React 中如何实现它可能并不明显。本文解释了我们选择的React 的比较算法（“diffing”algorithm ）使得组件的更新变得可预见，同时对于高性能应用来说足够快。
+=======
+React 提供声明式（declarative）API 所以你不必担心每次更新会有什么变化。这使得写应用更加容易，但在React 中如何实现它可能并不明显。本文解释了我们在React 的比较算法（“diffing”algorithm ）使得component 的更新变得可预见，同时对于高性能应用来说足够快。
+>>>>>>> 83841ae7dfeae55ae25730706a87fafaac6fb2c4
 
 ### Motivation
 

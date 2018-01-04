@@ -9,6 +9,10 @@
 ```
 const element = <h1>Hello, world</h1>;
 ```
+<<<<<<< HEAD
+=======
+不像浏览器DOM elements，React elements 是简单的对象，非常容易创建。React DOM 负责更新DOM 来匹配React elements。
+>>>>>>> 83841ae7dfeae55ae25730706a87fafaac6fb2c4
 
 不像浏览器DOM 元素，React 元素是纯对象，非常容易创建。React DOM 关心更新DOM 来匹配React 元素。
 
@@ -18,20 +22,33 @@ const element = <h1>Hello, world</h1>;
 
 ### Rendering an Element into the DOM
 
+<<<<<<< HEAD
 假如在你的HTML 文件的某个位置有一个`<div>`
 
 ```
+=======
+假设你的HTML 文件的某个位置有一个`<div>`
+```html
+>>>>>>> 83841ae7dfeae55ae25730706a87fafaac6fb2c4
 <div id="root"></div>
 ```
 
 我们称它为“root”DOM 节点，因为所有的在此节点中的内容都被React DOM 管理。
 
+<<<<<<< HEAD
 仅被React 构建的应用通常只有一个root DOM 节点。如果你正在集成React 到一个已经存在的应用，你可以按照你的喜好有多个独立的root DOM 节点。
 
 为了渲染一个React 元素到一个root DOM 节点，需要将其都传入`ReactDOM.render()`：
 
 ```
 const element = <h1>Hello, world</h1>;
+=======
+使用React 构建的应用通常只有一个root DOM 节点。如果你正在集成React 到一个已经存在的应用，你可以按照你的喜好有多个独立的root DOM 节点。
+
+为了渲染一个React element 到一个root DOM 节点，需要将它们传入`ReactDOM.render()`：
+```jsx
+const element = <h1>Hello, world</h1>
+>>>>>>> 83841ae7dfeae55ae25730706a87fafaac6fb2c4
 ReactDOM.render(
   element,
   document.getElementById('root')
