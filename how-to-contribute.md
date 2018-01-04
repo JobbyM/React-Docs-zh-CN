@@ -162,4 +162,4 @@ React 小组每周召开一次会议，讨论React 的未来计划、优先项�
 
 ### What Next?
 
-阅读[下一章节](https://reactjs.org/contributing/codebase-overview.html) 去了解代码库是如何被组织的。
+阅读[下一章节](https://reactjs.org/docs/codebase-overview.html) 去了解代码库是如何被组织的。
